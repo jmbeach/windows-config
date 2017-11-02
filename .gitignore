@@ -1,0 +1,23 @@
+custom-scripts/rdp-connections.ps1
+custom-scripts/bitrix_tasks.txt
+custom-scripts/communication-manager.ps1
+custom-scripts/kepware.ps1
+custom-scripts/opc-expert.ps1
+# Created by https://www.gitignore.io/api/vim
+
+### Vim ###
+# swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+# session
+Session.vim
+# temporary
+.netrwhist
+*~
+# auto-generated tag files
+tags
+
+# End of https://www.gitignore.io/api/vim
+
