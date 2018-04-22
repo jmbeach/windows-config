@@ -33,20 +33,30 @@ function Get-RunningProcessCount () {
 	Write-Host $i
 }
 
-function Kill-LeastUseful () {
-	$killable = @(
-		"DMedia",
-		"FBAgent",
-		"openvpn-gui",
-		"OneDrive",
-		"openvpnserv",
-		"TeamViewer",
-		"TeamViewer_Service",
-		"tvnserver",
-		"Wexflow.Clients.WindowsService")
-	$killable | foreach {
-		taskkill /F /IM $($_ + ".exe")
+function tasklist-v () {
+	Get-Process | foreach {
+		$_ | Format-Table Name, Id, CPU, PrivateMemorySize, Path
 	}
+}
+
+function Kill-Unessential () {
+	$killable = Get-JsonFromFile('~/custom-scripts/unessential.json')
+	$killable.processes | foreach {
+		if ($_.type -eq 'service') {
+			$fullName = $_.name
+			net stop $fullName /yes
+		}
+		else {
+			try {
+				Get-Process $_.name -EA SilentlyContinue | Stop-Process -Force
+			} catch {}
+		}
+	}
+}
+
+function Destroy-SearchUI {
+	Get-Process SearchUI | Stop-Process
+  Move-Item "C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\" "C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy.bak" -Force
 }
 
 function Kill-Vmware {

@@ -24,18 +24,6 @@ if( -not $env:PSModulePath.Contains($CmderModulePath) ){
     $env:PSModulePath = $env:PSModulePath.Insert(0, "$CmderModulePath;")
 }
 
-try {
-    Get-command -Name "vim" -ErrorAction Stop >$null
-} catch {
-    # # You could do this but it may be a little drastic and introduce a lot of
-    # # unix tool overlap with powershel unix like aliases
-    # $env:Path += $(";" + $env:CMDER_ROOT + "\vendor\git-for-windows\usr\bin")
-    # set-alias -name "vi" -value "vim"
-    # # I think the below is safer.
-
-    new-alias -name "vim" -value $($ENV:CMDER_ROOT + "\vendor\git-for-windows\usr\bin\vim.exe")
-    new-alias -name "vi" -value vim
-}
 
 try {
     # Check if git is on PATH, i.e. Git already installed on system
@@ -129,10 +117,10 @@ $UserProfileTemplate = @'
 <#
 .SYNTAX
     <PrePrompt><CMDER DEFAULT>
-    λ <PostPrompt> <repl input>
+    > <PostPrompt> <repl input>
 .EXAMPLE
     <PrePrompt>N:\Documents\src\cmder [master]
-    λ <PostPrompt> |
+    > <PostPrompt> |
 #>
 
 [ScriptBlock]$PrePrompt = {
@@ -170,7 +158,7 @@ Custom prompt functions are loaded in as constants to get the same behaviour
     $host.UI.RawUI.WindowTitle = Microsoft.PowerShell.Management\Split-Path $pwd.ProviderPath -Leaf
     PrePrompt | Microsoft.PowerShell.Utility\Write-Host -NoNewline
     CmderPrompt
-    Microsoft.PowerShell.Utility\Write-Host "`nλ " -NoNewLine -ForegroundColor "DarkGray"
+    Microsoft.PowerShell.Utility\Write-Host "`n> " -NoNewLine -ForegroundColor "DarkGray"
     PostPrompt | Microsoft.PowerShell.Utility\Write-Host -NoNewline
     $global:LASTEXITCODE = $realLASTEXITCODE
     return " "
@@ -212,12 +200,10 @@ Set-Alias -Name echo -Value "C:\cygwin\bin\echo.exe" -Option AllScope
 Set-Alias -Name rm -Value "C:\cygwin\bin\rm.exe" -Option AllScope
 Set-Alias -Name ssh -Value "C:\cygwin\bin\ssh.exe" -Option AllScope
 Set-Alias -Name rsync -Value "C:\cygwin\bin\rsync.exe" -Option AllScope
-Set-Alias -Name gitkraken -Value "$home\AppData\Local\gitkraken\Update.exe" -Option AllScope
 Set-Alias -Name pandoc -Value "$home\AppData\Local\Pandoc\pandoc.exe" -Option AllScope
 Set-Alias -Name rdp -Value "$windir\system32\mstsc.exe" -Option AllScope
 Set-Alias -Name bitrix -Value "D:\Program Files (x86)\Bitrix24\Bitrix24.exe" -Option AllScope
 Set-Alias -Name rapidee -Value "C:\Program Files\RapidEE\rapidee.exe" -Option AllScope
-Set-Alias -Name vim -Value "C:\Program Files (x86)\Vim\vim80\vim.exe" -Option AllScope
 Set-Alias -Name bash -Value "C:\Windows\System32\bash.exe" -Option AllScope
 Set-Alias -Name open -Value explorer -Option AllScope
 Set-Alias -Name make -Value "C:\cygwin\bin\make.exe" -Option AllScope
@@ -228,6 +214,8 @@ Set-Alias -Name more -Value "C:\msys32\usr\bin\more.exe" -Option AllScope
 Set-Alias -Name dotpeek -Value "D:\Users\Administrator\AppData\Local\JetBrains\Installations\dotPeek09\dotpeek64.exe"
 Set-Alias -Name angryip -Value "C:\Program Files\Angry IP Scanner\ipscan.exe"
 Set-Alias -Name shimgen -Value "$env:ChocolateyInstall\tools\shimgen.exe"
+Set-Alias -Name ssms12-config -Value "C:\Windows\SysWOW64\SQLServerManager12.msc"
+Set-Alias -Name ssms11-config -Value "C:\Windows\SysWOW64\SQLServerManager11.msc"
 
 # Functions
 
@@ -328,4 +316,6 @@ Set-Alias -Name ls -Value "$home\bin\ls.exe" -Option AllScope
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
 $env:PYTHONIOENCODING='utf-8'
+Add-Type -AssemblyName System.speech
+$speak = New-Object System.Speech.Synthesis.SpeechSynthesizer
 refreshenv
