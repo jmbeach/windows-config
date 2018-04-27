@@ -190,29 +190,10 @@ $appDataLocal = "$env:APPDATA\..\Local"
 
 # Aliases
 
-Set-Alias -Name gimp -Value "C:\Program Files\GIMP 2\bin\gimp-2.8.exe"
-Set-Alias -Name clink -Value "C:\Program Files (x86)\clink\0.4.8\clink.lua"
-Set-Alias -Name java -Value "C:\Program Files (x86)\Java\jdk1.8.0_111\bin\java.exe" -Option AllScope
-Set-Alias -Name atom -Value "$home\AppData\Local\atom\atom.exe" -Option AllScope
-Set-Alias -Name xmllint -Value "C:\cygwin\bin\xmllint.exe" -Option AllScope
-Set-Alias -Name curl -Value "C:\cygwin\bin\curl.exe" -Option AllScope
-Set-Alias -Name echo -Value "C:\cygwin\bin\echo.exe" -Option AllScope
-Set-Alias -Name rm -Value "C:\cygwin\bin\rm.exe" -Option AllScope
-Set-Alias -Name ssh -Value "C:\cygwin\bin\ssh.exe" -Option AllScope
-Set-Alias -Name rsync -Value "C:\cygwin\bin\rsync.exe" -Option AllScope
-Set-Alias -Name pandoc -Value "$home\AppData\Local\Pandoc\pandoc.exe" -Option AllScope
-Set-Alias -Name rdp -Value "$windir\system32\mstsc.exe" -Option AllScope
-Set-Alias -Name bitrix -Value "D:\Program Files (x86)\Bitrix24\Bitrix24.exe" -Option AllScope
-Set-Alias -Name rapidee -Value "C:\Program Files\RapidEE\rapidee.exe" -Option AllScope
-Set-Alias -Name bash -Value "C:\Windows\System32\bash.exe" -Option AllScope
 Set-Alias -Name open -Value explorer -Option AllScope
-Set-Alias -Name make -Value "C:\cygwin\bin\make.exe" -Option AllScope
 Set-Alias -Name fortune -Value "C:\cygwin\bin\fortune.exe" -Option AllScope
 Set-Alias -Name grep -Value "C:\cygwin\bin\grep.exe" -Option AllScope
 Set-Alias -Name xsltproc -Value "C:\cygwin\bin\xsltproc.exe" -Option AllScope
-Set-Alias -Name more -Value "C:\msys32\usr\bin\more.exe" -Option AllScope
-Set-Alias -Name dotpeek -Value "D:\Users\Administrator\AppData\Local\JetBrains\Installations\dotPeek09\dotpeek64.exe"
-Set-Alias -Name angryip -Value "C:\Program Files\Angry IP Scanner\ipscan.exe"
 Set-Alias -Name shimgen -Value "$env:ChocolateyInstall\tools\shimgen.exe"
 Set-Alias -Name ssms12-config -Value "C:\Windows\SysWOW64\SQLServerManager12.msc"
 Set-Alias -Name ssms11-config -Value "C:\Windows\SysWOW64\SQLServerManager11.msc"
