@@ -291,8 +291,6 @@ Get-ChildItem "$home\custom-scripts\*.ps1" | %{.$_}
 
 iex fortune
 register-chocolatey-functions
-# have to register ls later because of stupid chocolatey
-Set-Alias -Name ls -Value "$home\bin\ls.exe" -Option AllScope
 
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
