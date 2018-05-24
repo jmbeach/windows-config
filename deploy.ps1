@@ -1,0 +1,1 @@
+Copy-Item .\user-profile.ps1 $env:CMDER_ROOT\config\ -Force
