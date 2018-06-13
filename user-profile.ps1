@@ -25,7 +25,7 @@
 ## <Continue to add your own>
 # Variables
 
-$profile = "$env:CMDER_ROOT\config\user-profile.ps1"
+$userprofile = "$env:CMDER_ROOT\config\user-profile.ps1"
 $windir = "C:\Windows"
 $big = "D:\"
 $startup = "$home\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
