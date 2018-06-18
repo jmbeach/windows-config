@@ -38,6 +38,7 @@ $programFiles86 = "C:\Program Files (x86)\"
 $programFiles86D = "D:\Program Files (x86)\"
 $programFilesD = "D:\Program Files\"
 $appDataLocal = "$env:APPDATA\..\Local"
+$repos = "C:\Repos\"
 
 # Aliases
 
@@ -48,6 +49,7 @@ Set-Alias -Name xsltproc -Value "C:\tools\cygwin\bin\xsltproc.exe" -Option AllSc
 Set-Alias -Name shimgen -Value "$env:ChocolateyInstall\tools\shimgen.exe"
 Set-Alias -Name ssms12-config -Value "C:\Windows\SysWOW64\SQLServerManager12.msc"
 Set-Alias -Name ssms11-config -Value "C:\Windows\SysWOW64\SQLServerManager11.msc"
+Set-Alias -Name vim -Value "C:\Projects\vim81\vim.exe"
 
 # Functions
 
