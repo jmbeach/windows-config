@@ -6,7 +6,7 @@ function findProgram ([string] $programName) {
 	Get-ChildItem -Path $appDataLocal -Recurse -Include $("*" + $programName + "*.exe")
 }
 
-function Replace-Tabs([string] $fileName, [int] $spaceCount) {
+function Write-SpacesOverTabs([string] $fileName, [int] $spaceCount) {
 	if (!$spaceCount -eq 0) {
 		(Get-Content $fileName).Replace("`t", "    ") | Out-File $fileName -Encoding ascii
 		return
@@ -22,17 +22,22 @@ function Replace-Tabs([string] $fileName, [int] $spaceCount) {
 	return
 }
 
-function Shorten-SpaceTabs([string] $fileName) {
+function Write-ShortenedSpaceTabs([string] $fileName) {
 	(Get-Content $fileName).Replace("    ", "  ") | Out-File $fileName -Encoding ascii
 	return
 }
 
-function Replace-Newlines([string] $fileName) {
+function Write-UnixNewlines([string] $fileName) {
 	(Get-Content $fileName).Replace("`r`n", "`n") | Out-File $fileName -Encoding ascii
 	return
 }
 
-function Make-GmailSendable([string] $fileName) {
+function Write-DosNewlines([string] $fileName) {
+	(Get-Content $fileName).Replace("`n", "`r`n") | Out-File $fileName -Encoding ascii
+	return
+}
+
+function Convert-FileToGmailSendable([string] $fileName) {
 	$newName = $fileName.Replace("exe", "abc")
 	$finalName = $fileName.Replace("exe", "123")
 	$zipName = $fileName.Replace("exe", "zip")
@@ -42,4 +47,16 @@ function Make-GmailSendable([string] $fileName) {
 	7z a "$zipName" "$newName"
 
 	Copy-Item $zipName $finalName
+}
+
+function Get-ProgramsOnPath() {
+	$($env:PATH).Split(';') | ForEach-Object { dir $_ *.exe } | ForEach-Object { $_.Name + ' - ' + $_.Directory } | sort
+}
+
+function Convert-HtmlToPlainText([string] $content) {
+	return $content -replace '<[^>]+>',''
+}
+
+function Get-LockingProcess($file) {
+	handle | select-string $file -Context 3
 }
