@@ -1,0 +1,1 @@
+$FilterWebProject = [ScriptBlock]{ $_.Directory -NotLike "*node_modules*" -and $_.Directory -NotLike "*lib*" };

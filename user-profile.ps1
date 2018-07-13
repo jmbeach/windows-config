@@ -54,6 +54,7 @@ Set-Alias -Name ssms12-config -Value "C:\Windows\SysWOW64\SQLServerManager12.msc
 Set-Alias -Name ssms11-config -Value "C:\Windows\SysWOW64\SQLServerManager11.msc"
 Set-Alias -Name vim -Value "C:\Projects\vim81\vim.exe"
 Set-Alias -Name vs -Value visualstudio2015.exe
+Set-Alias -Name ss -Value Select-String
 
 # Functions
 

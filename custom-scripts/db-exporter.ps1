@@ -1,167 +1,59 @@
-function db-export-schema() {
-	$Filepath='D:\DatabaseBackups' # local directory to save build-scripts to
-	$DataSource='localhost\SQLEXPRESS' # server name and instance
-	$Database='SequenceEngine'# the database to copy from
-	# set "Option Explicit" to catch subtle errors
-	set-psdebug -strict
-	$ErrorActionPreference = "stop" # you can opt to stagger on, bleeding, if an error occurs
-	# Load SMO assembly, and if we're running SQL 2008 DLLs load the SMOExtended and SQLWMIManagement libraries
-	$ms='Microsoft.SqlServer'
-	$v = [System.Reflection.Assembly]::LoadWithPartialName( "$ms.SMO")
-	$trash = [System.Reflection.Assembly]::LoadWithPartialName( "Microsoft.SqlServer.ConnectionInfo")
-	if ((($v.FullName.Split(','))[1].Split('='))[1].Split('.')[0] -ne '9') {
-		[System.Reflection.Assembly]::LoadWithPartialName("$ms.SMOExtended") | out-null
-	}
-	$My="$ms.Management.Smo" #
-	$conn = new-object Microsoft.SqlServer.Management.Common.ServerConnection
-	$conn.LoginSecure = $FALSE
-	$conn.Login = "sa"
-	$conn.Password = "Hyla10$"
-	$conn.DatabaseName = "$Database"
-	$conn.ServerInstance = "$DataSource"
-	$s = new-object ("$My.Server") $conn
-	if ($s.Version -eq  $null ){Throw "Can't find the instance $Datasource"}
-	$db= $s.Databases[$Database] 
-	if ($db.name -ne $Database){Throw "Can't find the database '$Database' in $Datasource"};
-	$transfer = new-object ("$My.Transfer") $db
-	$transfer.Options.ScriptBatchTerminator = $true # this only goes to the file
-	$transfer.Options.ToFileOnly = $true # this only goes to the file
-	$transfer.Options.Filename = "$($FilePath)\$($Database)_Schema.sql"; 
-	try {
-		$transfer.EnumScriptTransfer() 
-	}
-	catch [System.Exception] {
-		$_.Exception
-		if ($_.Exception.InnerException) {
-			$_.Exception.InnerException
-		}
-	}
-	"All done"
+function Get-SqlConnection($connectionString) {
+	[System.Reflection.Assembly]::LoadWithPartialName("Microsoft.SqlServer.Smo") | Out-Null
+	[System.Reflection.Assembly]::LoadWithPartialName("Microsoft.SqlServer.ConnectionInfo") | Out-Null
+	[System.Reflection.Assembly]::LoadWithPartialName("Microsoft.SqlServer.SMOExtended") | Out-Null
+	$conn = New-Object Microsoft.SqlServer.Management.Common.ServerConnection
+	$conn.ConnectionString = $connectionString
+	$server = New-Object Microsoft.SqlServer.Management.Smo.Server $conn
+	if ($null -eq $server.Version) { Throw "Can't find the instance $Datasource" }
+	$db = $server.Databases[$conn.SqlConnectionObject.Database]
+	if ($null -eq $db) { Throw "Can't find the database" }
+	return $db
 }
 
-function db-export-data() {
-	$Filepath='D:\DatabaseBackups' # local directory to save build-scripts to
-	$DataSource='localhost\v12' # server name and instance
-	$Database='SequenceEngine'# the database to copy from
-	# set "Option Explicit" to catch subtle errors
-	set-psdebug -strict
-	$ErrorActionPreference = "stop" # you can opt to stagger on, bleeding, if an error occurs
-	# Load SMO assembly, and if we're running SQL 2008 DLLs load the SMOExtended and SQLWMIManagement libraries
-	$ms='Microsoft.SqlServer'
-	$v = [System.Reflection.Assembly]::LoadWithPartialName( "$ms.SMO")
-	$trash = [System.Reflection.Assembly]::LoadWithPartialName( "Microsoft.SqlServer.ConnectionInfo")
-	if ((($v.FullName.Split(','))[1].Split('='))[1].Split('.')[0] -ne '9') {
-		[System.Reflection.Assembly]::LoadWithPartialName("$ms.SMOExtended") | out-null
-	}
-	$My="$ms.Management.Smo" #
-	$conn = new-object Microsoft.SqlServer.Management.Common.ServerConnection
-	$conn.LoginSecure = $FALSE
-	$conn.Login = "sa"
-	$conn.Password = "Hyla10$"
-	$conn.DatabaseName = "$Database"
-	$conn.ServerInstance = "$DataSource"
-	$s = new-object ("$My.Server") $conn
-	if ($s.Version -eq  $null ){Throw "Can't find the instance $Datasource"}
-	$db= $s.Databases[$Database] 
-	if ($db.name -ne $Database){Throw "Can't find the database '$Database' in $Datasource"};
-	$transfer = new-object ("$My.Transfer") $db
-	$transfer.Options.ScriptBatchTerminator = $true # this only goes to the file
-	$transfer.Options.ToFileOnly = $true # this only goes to the file
-	$transfer.Options.Filename = "$($FilePath)\$($Database)_Data.sql"; 
-	$transfer.Options.ScriptSchema = $false
-	$transfer.Options.ScriptData = $true
-	try {
-		$transfer.EnumScriptTransfer() 
-	}
-	catch [System.Exception] {
-		$_.Exception
-		if ($_.Exception.InnerException) {
-			$_.Exception.InnerException
-		}
-	}
-	"All done"
+function Get-SqlExportPath() {
+	$filepath="$env:USERPROFILE\DatabaseBackups"
+	if (!$(Test-Path $filepath)) { mkdir $filepath}
+	return $filepath
 }
 
-function db-export-schema-cm() {
-	$Filepath='D:\DatabaseBackups' # local directory to save build-scripts to
-	$DataSource='localhost\v12' # server name and instance
-	$Database='HylaHSConfig'# the database to copy from
-	# set "Option Explicit" to catch subtle errors
-	set-psdebug -strict
-	$ErrorActionPreference = "stop" # you can opt to stagger on, bleeding, if an error occurs
-	# Load SMO assembly, and if we're running SQL 2008 DLLs load the SMOExtended and SQLWMIManagement libraries
-	$ms='Microsoft.SqlServer'
-	$v = [System.Reflection.Assembly]::LoadWithPartialName( "$ms.SMO")
-	$trash = [System.Reflection.Assembly]::LoadWithPartialName( "Microsoft.SqlServer.ConnectionInfo")
-	if ((($v.FullName.Split(','))[1].Split('='))[1].Split('.')[0] -ne '9') {
-		[System.Reflection.Assembly]::LoadWithPartialName("$ms.SMOExtended") | out-null
-	}
-	$My="$ms.Management.Smo" #
-	$conn = new-object Microsoft.SqlServer.Management.Common.ServerConnection
-	$conn.LoginSecure = $FALSE
-	$conn.Login = "sa"
-	$conn.Password = "Hyla10$"
-	$conn.DatabaseName = "$Database"
-	$conn.ServerInstance = "$DataSource"
-	$s = new-object ("$My.Server") $conn
-	if ($s.Version -eq  $null ){Throw "Can't find the instance $Datasource"}
-	$db= $s.Databases[$Database] 
-	if ($db.name -ne $Database){Throw "Can't find the database '$Database' in $Datasource"};
-	$transfer = new-object ("$My.Transfer") $db
-	$transfer.Options.ScriptBatchTerminator = $true # this only goes to the file
-	$transfer.Options.ToFileOnly = $true # this only goes to the file
-	$transfer.Options.Filename = "$($FilePath)\$($Database)_Schema.sql"; 
-	try {
-		$transfer.EnumScriptTransfer() 
-	}
-	catch [System.Exception] {
-		$_.Exception
-		if ($_.Exception.InnerException) {
-			$_.Exception.InnerException
-		}
-	}
-	"All done"
+function Get-SqlTransferOptions([string]$filePath, $db, [string]$fileSuffix, [boolean]$includeSchema, [boolean]$includeData) {
+	$transfer = New-Object Microsoft.SqlServer.Management.Smo.Transfer $db
+	$transfer.Options.ScriptBatchTerminator = $true
+	$transfer.Options.ToFileOnly = $true
+	$transfer.Options.Filename = "$($filePath)\$($db.Name)_$($fileSuffix).sql"
+	$transfer.Options.ScriptSchema = $includeSchema
+	$transfer.Options.ScriptData = $includeData
+	return $transfer
 }
 
-function db-export-data-cm() {
-	$Filepath='D:\DatabaseBackups' # local directory to save build-scripts to
-	$DataSource='localhost\v12' # server name and instance
-	$Database='HylaHSConfig'# the database to copy from
-	# set "Option Explicit" to catch subtle errors
-	set-psdebug -strict
-	$ErrorActionPreference = "stop" # you can opt to stagger on, bleeding, if an error occurs
-	# Load SMO assembly, and if we're running SQL 2008 DLLs load the SMOExtended and SQLWMIManagement libraries
-	$ms='Microsoft.SqlServer'
-	$v = [System.Reflection.Assembly]::LoadWithPartialName( "$ms.SMO")
-	$trash = [System.Reflection.Assembly]::LoadWithPartialName( "Microsoft.SqlServer.ConnectionInfo")
-	if ((($v.FullName.Split(','))[1].Split('='))[1].Split('.')[0] -ne '9') {
-		[System.Reflection.Assembly]::LoadWithPartialName("$ms.SMOExtended") | out-null
-	}
-	$My="$ms.Management.Smo" #
-	$conn = new-object Microsoft.SqlServer.Management.Common.ServerConnection
-	$conn.LoginSecure = $FALSE
-	$conn.Login = "sa"
-	$conn.Password = "Hyla10$"
-	$conn.DatabaseName = "$Database"
-	$conn.ServerInstance = "$DataSource"
-	$s = new-object ("$My.Server") $conn
-	if ($s.Version -eq  $null ){Throw "Can't find the instance $Datasource"}
-	$db= $s.Databases[$Database] 
-	if ($db.name -ne $Database){Throw "Can't find the database '$Database' in $Datasource"};
-	$transfer = new-object ("$My.Transfer") $db
-	$transfer.Options.ScriptBatchTerminator = $true # this only goes to the file
-	$transfer.Options.ToFileOnly = $true # this only goes to the file
-	$transfer.Options.Filename = "$($FilePath)\$($Database)_Data.sql"; 
-	$transfer.Options.ScriptSchema = $false
-	$transfer.Options.ScriptData = $true
+function Start-SqlTransfer($truansfer) {
 	try {
-		$transfer.EnumScriptTransfer() 
+		$transfer.EnumScriptTransfer()
 	}
 	catch [System.Exception] {
 		$_.Exception
 		if ($_.Exception.InnerException) {
 			$_.Exception.InnerException
+			return
 		}
 	}
-	"All done"
+
+	Write-Host -ForegroundColor Green "Success"
+}
+
+function Export-SqlSchema($connectionString) {
+	$filePath = Get-SqlExportPath
+	$ErrorActionPreference = "stop"
+	$db = Get-SqlConnection $connectionString
+	$transfer = Get-SqlTransferOptions $filePath $db "Schema" $true $false
+	Start-SqlTransfer $transfer
+}
+
+function Export-SqlData($connectionString) {
+	$filePath = Get-SqlExportPath
+	$ErrorActionPreference = "stop"
+	$db = Get-SqlConnection $connectionString
+	$transfer = Get-SqlTransferOptions $filePath $db "Data" $false $true
+	Start-SqlTransfer $transfer
 }
