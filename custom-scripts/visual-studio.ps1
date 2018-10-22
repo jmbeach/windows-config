@@ -13,3 +13,9 @@ function Show-VsWindows {
         } catch {}
     }
 }
+
+function Remove-VsBinsRecursive() {
+	Get-ChildItem .\ -include bin,obj -Recurse | ForEach-Object ($_) { 
+		Remove-Item -Recurse -Force $_.fullname 
+	}
+}

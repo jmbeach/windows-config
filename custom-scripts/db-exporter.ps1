@@ -42,12 +42,20 @@ function Start-SqlTransfer($truansfer) {
 	Write-Host -ForegroundColor Green "Success"
 }
 
+function Convert-FileEncodingAscii($fileName) {
+	$backupName = $fileName + ".bak"
+	Move-Item $fileName $backupName
+	Get-Content $backupName | Out-File $fileName -Encoding ascii
+	Remove-Item $backupName
+}
+
 function Export-SqlSchema($connectionString) {
 	$filePath = Get-SqlExportPath
 	$ErrorActionPreference = "stop"
 	$db = Get-SqlConnection $connectionString
 	$transfer = Get-SqlTransferOptions $filePath $db "Schema" $true $false
 	Start-SqlTransfer $transfer
+	Convert-FileEncodingAscii($transfer.Options.Filename)
 }
 
 function Export-SqlData($connectionString) {
@@ -56,4 +64,5 @@ function Export-SqlData($connectionString) {
 	$db = Get-SqlConnection $connectionString
 	$transfer = Get-SqlTransferOptions $filePath $db "Data" $false $true
 	Start-SqlTransfer $transfer
+	Convert-FileEncodingAscii($transfer.Options.Filename)
 }
