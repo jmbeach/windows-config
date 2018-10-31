@@ -142,7 +142,8 @@ Set-PSReadlineKeyHandler -Chord Tab -Function Complete
 Get-ChildItem "$home\custom-scripts\*.ps1" | %{.$_}
 Get-ChildItem "$home\private-custom-scripts\*.ps1" | %{.$_}
 
-fortune
+$homeUnix = $HOME.Replace("\", "/").Replace("C:", "")
+fortune | cowsay -f /mnt/c/$homeUnix/code/github/paulkaefer/cowsay-files/cows/1/box.cow
 register-chocolatey-functions
 
 $env:PYTHONIOENCODING='utf-8'
