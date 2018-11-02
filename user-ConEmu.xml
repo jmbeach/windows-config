@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <key name="Software">
 	<key name="ConEmu">
-		<key name=".Vanilla" modified="2018-10-31 06:48:52" build="180528">
-			<value name="ColorTable00" type="dword" data="00342c28"/>
-			<value name="ColorTable01" type="dword" data="0070635c"/>
-			<value name="ColorTable02" type="dword" data="0079c398"/>
-			<value name="ColorTable03" type="dword" data="0079c398"/>
-			<value name="ColorTable04" type="dword" data="004650be"/>
-			<value name="ColorTable05" type="dword" data="00dd78c6"/>
-			<value name="ColorTable06" type="dword" data="00669ad1"/>
-			<value name="ColorTable07" type="dword" data="00bfb2ab"/>
-			<value name="ColorTable08" type="dword" data="00697374"/>
-			<value name="ColorTable09" type="dword" data="00efaf61"/>
-			<value name="ColorTable10" type="dword" data="0079c398"/>
-			<value name="ColorTable11" type="dword" data="00c2b656"/>
-			<value name="ColorTable12" type="dword" data="00756ce0"/>
-			<value name="ColorTable13" type="dword" data="007a77f2"/>
-			<value name="ColorTable14" type="dword" data="005791f9"/>
-			<value name="ColorTable15" type="dword" data="00939fa0"/>
+		<key name=".Vanilla" modified="2018-11-02 07:25:13" build="180528">
+			<value name="ColorTable00" type="dword" data="00151515"/>
+			<value name="ColorTable01" type="dword" data="004a4a4a"/>
+			<value name="ColorTable02" type="dword" data="008de8c3"/>
+			<value name="ColorTable03" type="dword" data="008de8c3"/>
+			<value name="ColorTable04" type="dword" data="007053ff"/>
+			<value name="ColorTable05" type="dword" data="00ea92c7"/>
+			<value name="ColorTable06" type="dword" data="006c8cf7"/>
+			<value name="ColorTable07" type="dword" data="00ffffee"/>
+			<value name="ColorTable08" type="dword" data="00d6ccb2"/>
+			<value name="ColorTable09" type="dword" data="00ffaa82"/>
+			<value name="ColorTable10" type="dword" data="008de8c3"/>
+			<value name="ColorTable11" type="dword" data="00ffdd89"/>
+			<value name="ColorTable12" type="dword" data="007053ff"/>
+			<value name="ColorTable13" type="dword" data="007871f0"/>
+			<value name="ColorTable14" type="dword" data="006bcbff"/>
+			<value name="ColorTable15" type="dword" data="006c8cf7"/>
 			<value name="ColorTable16" type="dword" data="00222827"/>
 			<value name="ColorTable17" type="dword" data="009e5401"/>
 			<value name="ColorTable18" type="dword" data="0004aa74"/>
@@ -124,11 +124,11 @@
 			<value name="ColorKeyValue" type="dword" data="00010101"/>
 			<value name="UseCurrentSizePos" type="hex" data="01"/>
 			<value name="WindowMode" type="dword" data="0000051f"/>
-			<value name="ConWnd Width" type="dword" data="000000a2"/>
-			<value name="ConWnd Height" type="dword" data="0000002d"/>
+			<value name="ConWnd Width" type="dword" data="0000009f"/>
+			<value name="ConWnd Height" type="dword" data="0000002c"/>
 			<value name="Cascaded" type="hex" data="01"/>
-			<value name="ConWnd X" type="long" data="2224"/>
-			<value name="ConWnd Y" type="long" data="158"/>
+			<value name="ConWnd X" type="long" data="620"/>
+			<value name="ConWnd Y" type="long" data="173"/>
 			<value name="16bit Height" type="ulong" data="0"/>
 			<value name="AutoSaveSizePos" type="hex" data="01"/>
 			<value name="IntegralSize" type="hex" data="00"/>
@@ -1370,7 +1370,7 @@
 			</key>
 			<value name="StartCreateDelay" type="ulong" data="100"/>
 			<value name="DefaultTerminalDebugLog" type="hex" data="00"/>
-			<value name="LastMonitor" type="string" data="1920,0,3840,1040"/>
+			<value name="LastMonitor" type="string" data="0,0,1920,1040"/>
 			<value name="Restore2ActiveMon" type="hex" data="00"/>
 			<value name="DownShowExOnTopMessage" type="hex" data="00"/>
 			<value name="EnvironmentSet" type="multi">

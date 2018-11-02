@@ -143,7 +143,27 @@ Get-ChildItem "$home\custom-scripts\*.ps1" | %{.$_}
 Get-ChildItem "$home\private-custom-scripts\*.ps1" | %{.$_}
 
 $homeUnix = $HOME.Replace("\", "/").Replace("C:", "")
-fortune | cowsay -f /mnt/c/$homeUnix/code/github/paulkaefer/cowsay-files/cows/1/box.cow
+
+$cows = @(
+	'box',
+	'clippy',
+	'head',
+	'happy-whale',
+	'maze-runner',
+	'nyan',
+	'octopus',
+	'r2-d2',
+	'three-cubes',
+	'toaster',
+	'USA',
+	'wizard',
+	'world'
+)
+
+$cowIndex = [Math]::Round([Math]::Abs([Math]::Sin([datetime]::Now.Ticks)) * $cows.Count)
+$cowName = $cows[$cowIndex] + ".cow"
+
+fortune | cowsay -f /mnt/c/$homeUnix/code/github/paulkaefer/cowsay-files/cows/$cowName
 register-chocolatey-functions
 
 $env:PYTHONIOENCODING='utf-8'
