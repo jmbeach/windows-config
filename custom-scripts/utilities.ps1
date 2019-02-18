@@ -66,3 +66,11 @@ function Kill-Vmware {
 function Get-UserGroups($userName) {
 	(New-Object System.DirectoryServices.DirectorySearcher("(&(objectCategory=User)(samAccountName=$($userName)))")).FindOne().GetDirectoryEntry().memberOf
 }
+
+function Get-Wallpapers() {
+	$location = "$HOME\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets"
+	dir $location | foreach {
+		if ($_.Length -lt 100kb) { return }
+		cp $_.FullName $("$home\Pictures\Wallpapers\" + $_.Name + ".jpg");
+	}
+}
