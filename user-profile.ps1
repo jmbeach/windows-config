@@ -52,7 +52,7 @@ Set-Alias -Name xsltproc -Value "C:\tools\cygwin\bin\xsltproc.exe" -Option AllSc
 Set-Alias -Name shimgen -Value "$env:ChocolateyInstall\tools\shimgen.exe"
 Set-Alias -Name ssms12-config -Value "C:\Windows\SysWOW64\SQLServerManager12.msc"
 Set-Alias -Name ssms11-config -Value "C:\Windows\SysWOW64\SQLServerManager11.msc"
-Set-Alias -Name vs -Value visualstudio2015.exe
+Set-Alias -Name vs -Value visualstudio2017.exe
 Set-Alias -Name ss -Value Select-String
 
 # Functions
