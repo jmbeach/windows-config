@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>propn</Title>
+            <Shortcut>propn</Shortcut>
+            <Description>Code snippet for property and backing field in class implementing INotifyPropertyChanged</Description>
+            <Author>Brian Schroer</Author>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>
+            <Declarations>
+                <Literal>
+                    <ID>type</ID>
+                    <ToolTip>Property type</ToolTip>
+                    <Default>string</Default>
+                </Literal>
+                <Literal>
+                    <ID>property</ID>
+                    <ToolTip>Property name</ToolTip>
+                    <Default>MyProperty</Default>
+                </Literal>
+        <Literal>
+          <ID>notifyMethod</ID>
+          <ToolTip>name of method to raise PropertyChanged event</ToolTip>
+          <Default>NotifyPropertyChanged</Default>
+        </Literal>
+      </Declarations>
+            <Code Language="csharp"><![CDATA[private $type$ _$property$;
+    public $type$ $property$
+    {
+        get { return _$property$;}
+        set 
+    { 
+        if (value != _$property$)
+        {
+            _$property$ = value;
+            $notifyMethod$("$property$");
+        }
+    }
+    }
+    $end$]]>
+            </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>
