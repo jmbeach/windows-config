@@ -62,3 +62,7 @@ function Destroy-SearchUI {
 function Kill-Vmware {
 	taskkill /F /IM vmware*
 }
+
+function Get-UserGroups($userName) {
+	(New-Object System.DirectoryServices.DirectorySearcher("(&(objectCategory=User)(samAccountName=$($userName)))")).FindOne().GetDirectoryEntry().memberOf
+}
