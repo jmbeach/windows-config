@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>rgrid</Title>
+            <Shortcut>rgrid</Shortcut>
+            <Description>Code snippet creating a reborn grid</Description>
+            <Author>Jared Beach</Author>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>
+            <Declarations>
+                <Literal>
+                    <ID>identifier</ID>
+                    <ToolTip>CSS Selector for the element to create the grid on</ToolTip>
+                    <Default>string</Default>
+                </Literal>
+                <Literal>
+                    <ID>property</ID>
+                    <ToolTip>Property name</ToolTip>
+                    <Default>MyProperty</Default>
+                </Literal>
+        <Literal>
+          <ID>notifyMethod</ID>
+          <ToolTip>name of method to raise PropertyChanged event</ToolTip>
+          <Default>NotifyPropertyChanged</Default>
+        </Literal>
+      </Declarations>
+            <Code Language="javascript"><![CDATA[reborn.createGrid({
+        identifier: '$identifier$'
+    });
+    $end$]]>
+            </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

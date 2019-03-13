@@ -83,3 +83,8 @@ function set-ip-eth-williams-factory {
 	$networkInterface = "Ethernet"
 	set-ip-static $ip $strMask $gateway $dns1 $dns2 $networkInterface
 }
+
+function Reset-IpStack {
+	netsh int ip reset
+	Restart-Computer
+}

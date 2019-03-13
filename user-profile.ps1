@@ -107,12 +107,16 @@ function test-transform {
 	rm $tempName
 }
 
-function gh-create {
-	$repoName = $args[0]
+function Gh-Create ([string]$repoName) {
 	$data = @{
-		name=$repoName
+		name = $repoName
 	}
-	$data | ConvertTo-Json -Compress | curl -H "Content-Type: application/json" -u $ghUsername https://api.github.com/user/repos -d "@-"
+
+	$headers = @{
+		Authorization = "Basic $(Get-Content $home\gh.txt)"
+	}
+
+	return Invoke-WebRequest -Uri https://api.github.com/user/repos -Method Post -ContentType "application/json" -Headers $headers -Body $(ConvertTo-Json $data -Compress)
 }
 
 function notify-done {

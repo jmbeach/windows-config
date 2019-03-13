@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>rjsfile</Title>
+      <Shortcut>rjsfile</Shortcut>
+      <Description>Code snippet creating a reborn javascript code behind</Description>
+      <Author>Jared Beach</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>identifier</ID>
+          <ToolTip>CSS Selector for the element to create the grid on</ToolTip>
+          <Default>string</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="javascript">
+        <![CDATA['use strict'
+
+reborn.pages.$pagename$ = function ()
+{
+    this.onResize = OnResize;
+    this.onResizeBuffer = OnResizeBuffer;
+    const resizeBufferInMilliseconds = 100;
+    var resizeTimeout = null;
+    
+    function OnResize()
+    {
+        reborn.updateDeviceType();
+    }
+
+    function OnResizeBuffer()
+    {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(OnResize, resizeBufferInMilliseconds);
+    }
+};
+
+reborn.pages.$pagename$.prototype.onLoad = function ()
+{
+};
+$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
