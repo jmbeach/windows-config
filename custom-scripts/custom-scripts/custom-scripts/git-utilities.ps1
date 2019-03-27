@@ -1,10 +1,3 @@
-function Clean-GitStaleBranches {
-    $branches = git branch
-    $branches.Split("`n") | ForEach-Object {
-        git branch -d $_.Trim()
-    }
-}
-
 function Get-GitCurrentBranch() {
     [string]$branchLine = git branch | select-string -SimpleMatch '*'
     return $branchLine.Replace("*", "").Trim()
