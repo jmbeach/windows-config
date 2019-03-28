@@ -1,7 +1,17 @@
-function Capture-Screen($outPath) {
-    &"C:\Program Files\VideoLAN\VLC\vlc.exe" -I dummy screen:// --one-instance :screen-fps=16 :live-caching=300 :screen-left=0 :screen-width=1920 --sout $('#transcode{vcodec=h264,vb072}:standard{access=file,mux=mp4,dst="' + $outPath + '"')
+# Download https://github.com/rdp/screen-capture-recorder-to-video-windows-free/releases
+function Capture-Screen($outPath, $timeLimitSeconds) {
+    if ($timeLimitSeconds -gt 0) {
+        ffmpeg -f dshow  -i video="screen-capture-recorder" -r 20 -t $timeLimitSeconds $outPath
+        return
+    }
+
+    ffmpeg -f dshow  -i video="screen-capture-recorder" -r 20 $outPath
 }
 
-function End-ScreenCapture() {
-    &"C:\Program Files\VideoLAN\VLC\vlc.exe" --one-instance vlc://quit
+function Capture-ScreenLoop($outPath, $frequency) {
+    while(1) {
+        $date = [datetime]::Now.ToString("dd-hh-mm-ss");
+        $stamped = $outPath + $date + '.mp4';
+        Capture-Screen $stamped $frequency
+    }
 }
