@@ -37,6 +37,13 @@ function Write-DosNewlines([string] $fileName) {
 	return
 }
 
+function Convert-FileEncodingAscii($fileName) {
+	$backupName = $fileName + ".bak"
+	Move-Item $fileName $backupName
+	Get-Content $backupName | Out-File $fileName -Encoding ascii
+	Remove-Item $backupName
+}
+
 function Convert-FileToGmailSendable([string] $fileName) {
 	$newName = $fileName.Replace("exe", "abc")
 	$finalName = $fileName.Replace("exe", "123")

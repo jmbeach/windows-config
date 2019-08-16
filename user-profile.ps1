@@ -146,7 +146,7 @@ Set-PSReadlineKeyHandler -Chord Tab -Function Complete
 Get-ChildItem "$home\custom-scripts\*.ps1" | %{.$_}
 Get-ChildItem "$home\private-custom-scripts\*.ps1" | %{.$_}
 
-$homeUnix = $HOME.Replace("\", "/").Replace("C:", "")
+$homeUnix = $HOME.Replace("\", "/").Replace("Copen:", "")
 
 $cows = @(
 	'box',
@@ -173,4 +173,7 @@ register-chocolatey-functions
 $env:PYTHONIOENCODING='utf-8'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Set-Alias ls "C:\tools\cygwin\bin\ls.exe" -Option AllScope
-Set-Location $home
+
+Add-Type -AssemblyName System.speech
+$speak = [System.Speech.Synthesis.SpeechSynthesizer]::new()
+$speak.SelectVoice('Microsoft Zira Desktop')
