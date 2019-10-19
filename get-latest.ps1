@@ -15,3 +15,12 @@ $outFileName = "$cwd\visual-studio\vs17-settings.xml"
 $filenameEscaped="`"$outFileName`""
 $dte = [System.Runtime.InteropServices.Marshal]::GetActiveObject("VisualStudio.DTE.15.0") 
 $dte.ExecuteCommand("Tools.ImportandExportSettings", '/export:'+$filenameEscaped)
+
+# get vs code settings and copy here
+if (![System.IO.Directory]::Exists("$cwd\vscode-config"))
+{
+    mkdir ".\vscode-config"
+}
+
+$codeFolder = "$home\AppData\Roaming\Code\User";
+Copy-Item "$codeFolder\settings.json","$codeFolder\keybindings.json" ".\vscode-config"
