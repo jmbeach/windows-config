@@ -46,7 +46,6 @@ $repos = "C:\Repos\"
 # Aliases
 
 Set-Alias -Name open -Value explorer -Option AllScope
-Set-Alias -Name fortune -Value "C:\tools\cygwin\bin\fortune.exe" -Option AllScope
 Set-Alias -Name grep -Value "C:\tools\cygwin\bin\grep.exe" -Option AllScope
 Set-Alias -Name xsltproc -Value "C:\tools\cygwin\bin\xsltproc.exe" -Option AllScope
 Set-Alias -Name shimgen -Value "$env:ChocolateyInstall\tools\shimgen.exe"
@@ -167,7 +166,7 @@ $cows = @(
 $cowIndex = [Math]::Round([Math]::Abs([Math]::Sin([datetime]::Now.Ticks)) * $cows.Count)
 $cowName = $cows[$cowIndex] + ".cow"
 
-fortune | cowsay -f /mnt/c/$homeUnix/code/github/paulkaefer/cowsay-files/cows/$cowName
+fortune disclaimer | cowsay -f /mnt/c/$homeUnix/code/github/paulkaefer/cowsay-files/cows/$cowName
 register-chocolatey-functions
 
 $env:PYTHONIOENCODING='utf-8'
