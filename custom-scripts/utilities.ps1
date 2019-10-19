@@ -27,6 +27,10 @@ function Convert-Pdf2Txt () {
 	python C:\Python27\Scripts\pdf2txt.py $1 | Out-File -Encoding ascii $($1 + '.txt') 
 }
 
+function Get-EmojiShrug () {
+	Write-Host '¯_(ツ)_/¯'
+}
+
 function Get-RunningProcessCount () {
 	$i = 0
 	tasklist | sort | foreach { $i = $i + 1 }
