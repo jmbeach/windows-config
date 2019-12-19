@@ -6,7 +6,7 @@ Copy-Item .\user-profile.ps1 $env:CMDER_ROOT\config\ -Force
 Copy-Item .\prompt-char.txt "$env:CMDER_ROOT\config\prompt-char.txt"
 Copy-Item -re -fo .\custom-scripts\* $home\custom-scripts
 Copy-Item .\user-ConEmu.xml "$env:CMDER_ROOT\"
-Copy-Item -re -fo .\visual-studio\code-snippets\* "$env:USERPROFILE\Documents\Visual Studio 2017\Code Snippets\"
+Copy-Item -re -fo .\visual-studio\code-snippets\* "$env:USERPROFILE\Documents\Visual Studio 2015\Code Snippets\"
 Copy-Item -Force .\vscode-config\* $home\AppData\Roaming\Code\User
 
 $cwd = (Get-Item .).FullName
