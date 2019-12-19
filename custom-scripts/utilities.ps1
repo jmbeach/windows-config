@@ -31,6 +31,50 @@ function Get-EmojiShrug () {
 	Write-Host '¯_(ツ)_/¯'
 }
 
+function Get-Randomizer () {
+	[string]$seedString = [System.DateTime]::Now.Ticks.ToString();
+	$length = 9;
+	$smaller = $seedString.Substring($seedString.Length - $length, $length);
+	$seed = [System.Convert]::ToInt32($smaller) - $i;
+	$rand = [System.Random]::new($seed);
+	return $rand;
+}
+
+function Get-RandomText ($length = 10, [switch]$alphaNumeric = $false, [switch]$numeric = $false, [switch]$alpha = $false) {
+	$text = '';
+	$nonAlphaNumeric = @(
+		58,59,60,61,62,63,64,91,92,93,94,95,96
+	);
+
+	for ($i = 0; $i -lt $length; $i++) {
+		$start = 32;
+		$end = 126;
+		if ($alphaNumeric) {
+			$start = 48;
+			$end = 122;
+		} elseif ($numeric) {
+			$start = 48;
+			$end = 57;
+		} elseif ($alpha) {
+			$start = 65;
+			$end = 122;
+		}
+
+		$rand = Get-Randomizer;
+		$rando = $rand.Next($start, $end);
+
+		# re-roll
+		while (($alphaNumeric -or $alpha) -and $nonAlphaNumeric.Contains($rando)) {
+			$rand = Get-Randomizer;
+			$rando = $rand.Next($start, $end);
+		}
+
+		$text += [System.Convert]::ToChar($rando);
+	}
+
+	return $text;
+}
+
 function Get-RunningProcessCount () {
 	$i = 0
 	tasklist | sort | foreach { $i = $i + 1 }
