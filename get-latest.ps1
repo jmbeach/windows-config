@@ -11,9 +11,9 @@ Copy-Item -re -fo "$env:USERPROFILE\Documents\Visual Studio 2017\Code Snippets\*
 $cwd = (Get-Item .).FullName
 
 # export visual studio settings and copy here https://stackoverflow.com/a/48663477/1834329
-$outFileName = "$cwd\visual-studio\vs17-settings.xml"
+$outFileName = "$cwd\visual-studio\vs15-settings.xml"
 $filenameEscaped="`"$outFileName`""
-$dte = [System.Runtime.InteropServices.Marshal]::GetActiveObject("VisualStudio.DTE.15.0") 
+$dte = [System.Runtime.InteropServices.Marshal]::GetActiveObject("VisualStudio.DTE.14.0") 
 $dte.ExecuteCommand("Tools.ImportandExportSettings", '/export:'+$filenameEscaped)
 
 # get vs code settings and copy here

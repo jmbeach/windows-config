@@ -12,6 +12,13 @@
     "git.enableSmartCommit": true,
     "git.confirmSync": false,
     "jscpd.files": "*.js",
+    "mssql.connections": [
+        {
+            "connectionString": "Server=localhost;Initial Catalog=EQCI;Integrated Security=True;",
+            "profileName": "EQCI local",
+            "password": ""
+        }
+    ],
     "go.formatTool": "goimports",
     "go.useLanguageServer": true
 }

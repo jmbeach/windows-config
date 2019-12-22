@@ -28,7 +28,7 @@ function Convert-Pdf2Txt () {
 }
 
 function Get-EmojiShrug () {
-	Write-Host '¯_(ツ)_/¯'
+	Get-Content $home\shrug.txt
 }
 
 function Get-Randomizer () {
