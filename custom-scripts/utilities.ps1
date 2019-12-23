@@ -120,9 +120,10 @@ function Get-Wallpapers() {
 	}
 }
 
-function Write-Tabular([array]$list, [scriptblock]$highlightExpression, $headerUnderlineColor, $highlightColor) {
+function Write-Tabular([array]$list, [scriptblock]$highlightExpression, $headerUnderlineColor, $highlightColor, [switch]$debug = $false) {
 	$first = $list[0];
-	$members = $first | Get-Member | Where-Object { $_.MemberType -ne 'Method' };
+    $members = $first | Get-Member | Where-Object { $_.MemberType -ne 'Method' };
+
 	if ($null -eq $headerUnderlineColor) {
 		$headerUnderlineColor = 'Blue';
 	}
@@ -148,14 +149,51 @@ function Write-Tabular([array]$list, [scriptblock]$highlightExpression, $headerU
 				$writingDetails[$member.Name].maxLength = $item.PSObject.Properties[$member.Name].Value.ToString().Length;
 			}
 		}
-	}
+    }
+    
+    function get-tabCount([string]$val, $details) {
+        $debugInfo = '';
+        $factorRaw = $val.Length / $details.maxLength;
+        $factor = [System.Math]::Round($factorRaw * 10) / 10;
+
+        $tabCount = 0;
+        $maxTabs = [System.Math]::Floor($details.maxLength / 8);
+        if ($val.Length -ne $details.maxLength) {
+            $tabCount = [System.Math]::Round((1 - $factor) * $maxTabs);
+            if ($maxTabs % 2 -ne 0 -and $factorRaw -gt 0.5 -and $factorRaw -lt 0.55) {
+                $tabCount--
+            }
+            if ($factor -eq 0 -and $maxTabs -gt 0) {
+                $tabCount = $maxTabs - 1;
+            } elseif ($factor -lt 0.21 -and $maxTabs -gt 0) {
+                $tabCount++;
+            }
+
+            if ($factor -gt 0 -and $factor -lt 0.11 -and $maxTabs -gt 0) {
+                $tabCount = $maxTabs;
+            }
+
+            if ($maxTabs -eq 1 -and $factorRaw -lt 0.7) {
+                $tabCount = 1;
+            }
+        }
+
+        $debugInfo = 'fr:' + [System.Math]::Round($factorRaw, 2) + ',f:' + [System.Math]::Round($factor, 2) + ',m:' + $maxTabs + ',t:' + $tabCount + '|';
+
+        $result = @{
+            DebugInfo = $debugInfo;
+            TabCount = $tabCount;
+        }
+        return $result;
+    }
 
 	$header = '';
 	$underline = '';
 	for ($i = 0; $i -lt $members.Length; $i++) {
 		$member = $members[$i];
 		$details = $writingDetails[$member.Name];
-		$tabCount = ($details.maxLength - $member.Name.Length) / 9;
+        $tabCountResult = get-tabCount -val $member.Name -details $details;
+        $tabCount = $tabCountResult.TabCount;
 		$header += $member.Name;
 		$(1..$member.Name.Length) | ForEach-Object { $underline += "=" };
 		if ($tabCount -gt 0 -and $i -ne $members.Length - 1) {
@@ -186,32 +224,14 @@ function Write-Tabular([array]$list, [scriptblock]$highlightExpression, $headerU
 		$item = $_
         $line = '';
 
-        $debugInfo = ' ---- ';
+        $debugInfo = '--';
 		for ($j = 0; $j -lt $members.Length; $j++) {
             $member = $members[$j];
 			$val = $item.PSObject.Properties[$member.Name].Value.ToString();
             $details = $writingDetails[$member.Name];
-            $factorRaw = $val.Length / $details.maxLength;
-            $factor = [System.Math]::Round($factorRaw * 10) / 10;
-
-            $tabCount = 0;
-            $maxTabs = [System.Math]::Floor($details.maxLength / 8);
-            if ($val.Length -ne $details.maxLength) {
-                $tabCount = [System.Math]::Round((1 - $factor) * $maxTabs);
-                if ($maxTabs % 2 -ne 0 -and $factorRaw -gt 0.5 -and $factorRaw -lt 0.55) {
-                    $tabCount--
-                }
-                if ($factor -eq 0 -and $maxTabs -gt 0) {
-                    $tabCount = $maxTabs - 1;
-                } elseif ($factor -lt 0.21 -and $maxTabs -gt 0) {
-                    $tabCount++;
-                }
-
-                if ($factor -gt 0 -and $factor -lt 0.11 -and $maxTabs -gt 0) {
-                    $tabCount = $maxTabs;
-                }
-            }
-
+            $tabCountResult = get-tabCount -val $val -details $details;
+            $tabCount = $tabCountResult.TabCount;
+            $debugInfo += $tabCountResult.DebugInfo;
 			$line += $val
 			if ($tabCount -gt 0 -and $j -ne $members.Length - 1) {
 				$(1..$tabCount) | ForEach-Object { $line += "`t" };
@@ -220,9 +240,6 @@ function Write-Tabular([array]$list, [scriptblock]$highlightExpression, $headerU
 			if ($j -ne $members.Length - 1) {
                 $line += "`t|`t"
             }
-            
-            $debugInfo += 'fr:' + [System.Math]::Round($factorRaw, 2) + ',f:' + [System.Math]::Round($factor, 2) + ',m:' + $maxTabs + ',t:' + $tabCount + '|';
-
 		}
 
 		if ($null -ne $highlightExpression -and $($item | &$highlightExpression)) {
@@ -233,11 +250,20 @@ function Write-Tabular([array]$list, [scriptblock]$highlightExpression, $headerU
 				if ($j -ne $lineParts.Length - 1) {
 					Write-Host "|" -NoNewline;
 				}
-			}
+            }
+            
+            if ($debug) {
+                Write-Host $debugInfo -NoNewline
+            }
 
 			Write-Host;
 		} else {
-            Write-Host $line
+            Write-Host $line -NoNewline
+            if ($debug) {
+                Write-Host $debugInfo -NoNewline
+            }
+
+            Write-Host
 		}
 	}
 }
