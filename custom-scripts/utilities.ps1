@@ -99,6 +99,22 @@ function Kill-Unessential () {
 	}
 }
 
+function Kill-NonDefault () {
+	$defaultProcesses = Get-Content "$HOME\custom-scripts\default-processes.txt";
+	$processes = Get-Process | Where-Object {-not $defaultProcesses.Contains($_.Name)}
+	$defaultServices = Get-Content "$HOME\custom-scripts\default-services.txt";
+	$services = Get-Service | Where-Object {-not $defaultServices.Contains($_.Name)}
+	$services | ForEach-Object {
+		Write-Host $('Stopping service "' + $_.Name + '".');
+		Get-Service $_.Name | Stop-Service -Force;
+	}
+
+	$processes | ForEach-Object {
+		Write-Host $('Stopping process "' + $_.Name + '".');
+		Get-Process $_.Name | Stop-Process -Force;
+	}
+}
+
 function Destroy-SearchUI {
 	Get-Process SearchUI | Stop-Process
   Move-Item "C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\" "C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy.bak" -Force
