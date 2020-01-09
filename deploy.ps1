@@ -9,6 +9,7 @@ Copy-Item .\user-ConEmu.xml "$env:CMDER_ROOT\"
 Copy-Item -re -fo .\visual-studio\code-snippets\* "$env:USERPROFILE\Documents\Visual Studio 2015\Code Snippets\"
 Copy-Item -Force .\vscode-config\* $home\AppData\Roaming\Code\User
 Copy-Item .\shrug.txt "$HOME\" -Force
+Copy-Item icons $HOME
 
 $cwd = (Get-Item .).FullName
 
