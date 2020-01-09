@@ -11,7 +11,10 @@
 
 [ScriptBlock]$CmderPrompt = {
 	$Host.UI.RawUI.ForegroundColor = "White"
-	Microsoft.PowerShell.Utility\Write-Host $pwd.ProviderPath -NoNewLine -ForegroundColor DarkCyan
+	Microsoft.PowerShell.Utility\Write-Host $pwd.ProviderPath.Replace($home, '~') -NoNewLine -ForegroundColor DarkCyan
+	Microsoft.PowerShell.Utility\Write-Host ' {' -ForegroundColor Green -NoNewLine 
+	Microsoft.PowerShell.Utility\Write-Host (Get-IronConfig).activeTicket -NoNewLine 
+	Microsoft.PowerShell.Utility\Write-Host '}' -ForegroundColor Green -NoNewLine
 	checkGit($pwd.ProviderPath)
 }
 
