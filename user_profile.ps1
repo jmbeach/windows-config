@@ -11,7 +11,7 @@
 
 [ScriptBlock]$CmderPrompt = {
 	$Host.UI.RawUI.ForegroundColor = "White"
-	Microsoft.PowerShell.Utility\Write-Host $pwd.ProviderPath.Replace($home, '~') -NoNewLine -ForegroundColor DarkCyan
+	Microsoft.PowerShell.Utility\Write-Host $pwd.ProviderPath.Replace($home, '~').Replace("C:\code\secure.ironguides.com\IronGuides.Web", "IG-Web") -NoNewLine -ForegroundColor DarkCyan
 	Microsoft.PowerShell.Utility\Write-Host ' {' -ForegroundColor Green -NoNewLine 
 	Microsoft.PowerShell.Utility\Write-Host (Get-IronConfig).activeTicket -NoNewLine 
 	Microsoft.PowerShell.Utility\Write-Host '}' -ForegroundColor Green -NoNewLine
@@ -48,13 +48,17 @@ $repos = "C:\Repos\"
 
 # Aliases
 
-Set-Alias -Name open -Value explorer -Option AllScope
 Set-Alias -Name grep -Value "C:\tools\cygwin\bin\grep.exe" -Option AllScope
-Set-Alias -Name xsltproc -Value "C:\tools\cygwin\bin\xsltproc.exe" -Option AllScope
+Set-Alias -Name jira -Value Open-JiraTicket
+Set-Alias -Name list -Value List-IronTickets
+Set-Alias -Name open -Value explorer -Option AllScope
 Set-Alias -Name shimgen -Value "$env:ChocolateyInstall\tools\shimgen.exe"
-Set-Alias -Name ssms12-config -Value "C:\Windows\SysWOW64\SQLServerManager12.msc"
-Set-Alias -Name ssms11-config -Value "C:\Windows\SysWOW64\SQLServerManager11.msc"
 Set-Alias -Name ss -Value Select-String
+Set-Alias -Name ssms11-config -Value "C:\Windows\SysWOW64\SQLServerManager11.msc"
+Set-Alias -Name ssms12-config -Value "C:\Windows\SysWOW64\SQLServerManager12.msc"
+Set-Alias -Name status -Value Get-IronTicketStatus
+Set-Alias -Name todos -Value List-IronTicketTodos
+Set-Alias -Name xsltproc -Value "C:\tools\cygwin\bin\xsltproc.exe" -Option AllScope
 
 # Functions
 
