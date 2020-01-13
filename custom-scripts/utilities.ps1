@@ -136,6 +136,18 @@ function Get-Wallpapers() {
 	}
 }
 
+function Start-Blue () {
+	ConEmu.exe -Icon "C:\tools\Cmder\icons\cmder_blue.ico" -run "{Powershell 5 as Admin}"
+}
+
+function Start-Red () {
+	ConEmu.exe -Icon "C:\tools\Cmder\icons\red.ico" -run "{Powershell 5 as Admin}"
+}
+
+function Start-Purple () {
+	ConEmu.exe -Icon "C:\tools\Cmder\icons\cmder_purple.ico" -run "{Powershell 5 as Admin}"
+}
+
 function Write-Tabular([array]$list, [scriptblock]$highlightExpression, $headerUnderlineColor, $highlightColor, $debug = $false) {
 	$first = $list[0];
     $members = $first | Get-Member | Where-Object { $_.MemberType -ne 'Method' };
