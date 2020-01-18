@@ -84,34 +84,64 @@ function Get-RunningProcessCount () {
 	Write-Host $i
 }
 
-function Kill-Unessential () {
+function Kill-Unessential ([switch]$prompt) {
 	$killable = Get-JsonFromFile('~/custom-scripts/unessential.json')
-	$killable.processes | foreach {
+	$permittedResponses = @('y', 'Y', "`r", "`r`n");
+	$killable.processes | ForEach-Object {
 		if ($_.type -eq 'service') {
-			$fullName = $_.name
-			net stop $fullName /yes
+			$permitted = 'y';
+			if ($prompt) {
+				$permitted = Read-Host -Prompt ("Stop service " + $_.name + "? [Y/n]");
+			}
+
+			if ($permittedResponses.Contains($permitted)) {
+				$fullName = $_.name
+				net stop $fullName /yes
+			}
 		}
 		else {
 			try {
-				Get-Process $_.name -EA SilentlyContinue | Stop-Process -Force
+				$permitted = 'y';
+				if ($prompt) {
+					$permitted = Read-Host -Prompt ("Stop service " + $_.Name + "? [Y/n]");
+				}
+
+				if ($permittedResponses.Contains($permitted)) {
+					Get-Process $_.name -EA SilentlyContinue | Stop-Process -Force
+				}
 			} catch {}
 		}
 	}
 }
 
-function Kill-NonDefault () {
+function Kill-NonDefault ([switch]$prompt) {
+	$permittedResponses = @('y', 'Y', "`r", "`r`n", $null, '');
 	$defaultProcesses = Get-Content "$HOME\custom-scripts\default-processes.txt";
 	$processes = Get-Process | Where-Object {-not $defaultProcesses.Contains($_.Name)}
 	$defaultServices = Get-Content "$HOME\custom-scripts\default-services.txt";
-	$services = Get-Service | Where-Object {-not $defaultServices.Contains($_.Name)}
+	$services = Get-Service | Where-Object {-not $defaultServices.Contains($_.Name) -and $_.Status -ne 'Stopped'}
 	$services | ForEach-Object {
-		Write-Host $('Stopping service "' + $_.Name + '".');
-		Get-Service $_.Name | Stop-Service -Force;
+		$permitted = 'y';
+		if ($prompt) {
+			$permitted = Read-Host -Prompt ("Stop service " + $_.name + "? [Y/n]");
+		}
+
+		if ($permittedResponses.Contains($permitted)) {
+			Write-Host -ForegroundColor DarkGray $('Stopping service "' + $_.Name + '".');
+			Get-Service $_.Name | Stop-Service -Force;
+		}
 	}
 
 	$processes | ForEach-Object {
-		Write-Host $('Stopping process "' + $_.Name + '".');
-		Get-Process $_.Name | Stop-Process -Force;
+		$permitted = 'y';
+		if ($prompt) {
+			$permitted = Read-Host -Prompt ("Stop process " + $_.Name + "? [Y/n]");
+		}
+
+		if ($permittedResponses.Contains($permitted)) {
+			Write-Host $('Stopping process "' + $_.Name + '".');
+			Get-Process $_.Name | Stop-Process -Force;
+		}
 	}
 }
 
