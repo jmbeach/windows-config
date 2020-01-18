@@ -123,7 +123,7 @@ function Kill-NonDefault ([switch]$prompt) {
 	$services | ForEach-Object {
 		$permitted = 'y';
 		if ($prompt) {
-			$permitted = Read-Host -Prompt ("Stop service " + $_.name + "? [Y/n]");
+			$permitted = Read-Host -Prompt ("Stop service `"" + $_.name + "`" (" + $_.DisplayName + ")? [Y/n]");
 		}
 
 		if ($permittedResponses.Contains($permitted)) {
@@ -135,7 +135,7 @@ function Kill-NonDefault ([switch]$prompt) {
 	$processes | ForEach-Object {
 		$permitted = 'y';
 		if ($prompt) {
-			$permitted = Read-Host -Prompt ("Stop process " + $_.Name + "? [Y/n]");
+			$permitted = Read-Host -Prompt ("Stop process `"" + $_.Name + "`" (" + $_.Path + ")? [Y/n]");
 		}
 
 		if ($permittedResponses.Contains($permitted)) {
