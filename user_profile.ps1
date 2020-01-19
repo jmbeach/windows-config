@@ -58,6 +58,7 @@ Set-Alias -Name ssms11-config -Value "C:\Windows\SysWOW64\SQLServerManager11.msc
 Set-Alias -Name ssms12-config -Value "C:\Windows\SysWOW64\SQLServerManager12.msc"
 Set-Alias -Name status -Value Get-IronTicketStatus
 Set-Alias -Name todos -Value List-IronTicketTodos
+Set-Alias -Name speak -Value Start-GoogleTTS
 Set-Alias -Name xsltproc -Value "C:\tools\cygwin\bin\xsltproc.exe" -Option AllScope
 
 # Functions
@@ -177,11 +178,6 @@ register-chocolatey-functions
 
 $env:PYTHONIOENCODING='utf-8'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-
-Add-Type -AssemblyName System.speech
-$speak = [System.Speech.Synthesis.SpeechSynthesizer]::new()
-$speak.SelectVoice('Microsoft Zira Desktop')
-
 Set-Item -Path function:\PrePrompt   -Value $PrePrompt   -Options Constant
 Set-Item -Path function:\CmderPrompt -Value $CmderPrompt -Options Constant
 Set-Item -Path function:\PostPrompt  -Value $PostPrompt  -Options Constant
@@ -202,3 +198,4 @@ function Get-ChildItemPretty () {
 }
 
 Set-Alias -Name ls -Value Get-ChildItemPretty -Option AllScope
+Import-Module $HOME\Code\github\jmbeach\Windows-screenFetch\windows-screenfetch.psd1
