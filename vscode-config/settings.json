@@ -20,5 +20,10 @@
         }
     ],
     "go.formatTool": "goimports",
-    "go.useLanguageServer": true
+    "go.useLanguageServer": true,
+    "search.searchOnType": false,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "files.exclude": {
+        "**/node_modules": true
+    }
 }

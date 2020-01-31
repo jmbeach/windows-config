@@ -24,3 +24,4 @@ if (![System.IO.Directory]::Exists("$cwd\vscode-config"))
 
 $codeFolder = "$home\AppData\Roaming\Code\User";
 Copy-Item "$codeFolder\settings.json","$codeFolder\keybindings.json" ".\vscode-config"
+Copy-Item -Recurse "$codeFolder\snippets" ".\vscode-snippets"
