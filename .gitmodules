@@ -1,0 +1,3 @@
+[submodule "custom-powershell-scripts"]
+	path = custom-powershell-scripts
+	url = https://github.com/jmbeach/custom-powershell-scripts.git
