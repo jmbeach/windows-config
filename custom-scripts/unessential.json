@@ -1,0 +1,82 @@
+[
+    {
+        "name": "BcastDVRUserService_129286",
+        "type": "service"
+    },
+    {
+        "name": "Bonjour Service",
+        "type": "service"
+    },
+    {
+        "name": "PimIndexMaintenanceSvc_129286",
+        "type": "service"
+    },
+    {
+        "name": "OneSyncSvc_129286",
+        "type": "service"
+    },
+    {
+        "name": "1Password"
+    },
+    {
+        "name": "GameBar"
+    },
+    {
+        "name": "WSearch",
+        "type": "service"
+    },
+    {
+        "name": "SkypeApp"
+    },
+    {
+        "name": "OneDrive"
+    },
+    {
+        "name": "YourPhone"
+    },
+    {
+        "name": "PhoneSvc",
+        "type": "service"
+    },
+    {
+        "name": "Microsoft.Photos"
+    },
+    {
+        "name": "Postman"
+    },
+    {
+        "name": "ctfmon"
+    },
+    {
+        "name": "WindowsInternal.ComposableShell.Experiences.TextInput.InputApp"
+    },
+    {
+        "name": "LockApp"
+    },
+    {
+        "name": "iCloudServices"
+    },
+    {
+        "name": "vpnagent",
+        "type": "service"
+    },
+    {
+        "name": "GameBarFTServer"
+    },
+    {
+        "name": "AppleMobileDeviceProcess"
+    },
+    {
+        "name": "SQLWriter",
+        "type": "service"
+    },
+    {
+        "name": "BCClipboard"
+    },
+    {
+        "name": "Autohotkey"
+    },
+    {
+        "name": "software_reporter_tool"
+    }
+]
