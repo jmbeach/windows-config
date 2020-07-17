@@ -69,5 +69,21 @@
         "key": "s",
         "command": "git.stage",
         "when": "isInDiffEditor"
+    },
+    {
+        "key": "ctrl+shift+`",
+        "command": "-workbench.action.terminal.new"
+    },
+    {
+        "key": "ctrl+shift+`",
+        "command": "workbench.action.terminal.toggleTerminal"
+    },
+    {
+        "key": "ctrl+`",
+        "command": "-workbench.action.terminal.toggleTerminal"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "explorer.newFile"
     }
 ]

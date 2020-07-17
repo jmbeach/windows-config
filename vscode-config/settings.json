@@ -1,8 +1,5 @@
 {
-    "window.zoomLevel": 0,
-    "workbench.colorTheme": "Material Theme Palenight High Contrast",
-    "javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
-    "javascript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "window.zoomLevel": -1,
     "workbench.colorCustomizations": {},
     "git.autofetch": true,
     "files.associations": {
@@ -21,9 +18,30 @@
     ],
     "go.formatTool": "goimports",
     "go.useLanguageServer": true,
-    "search.searchOnType": false,
+    "search.searchOnType": true,
     "javascript.updateImportsOnFileMove.enabled": "always",
-    "files.exclude": {
-        "**/node_modules": true
-    }
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "terminal.integrated.shell.windows": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+    "gitlens.views.repositories.location": "gitlens",
+    "gitlens.views.fileHistory.location": "gitlens",
+    "gitlens.views.lineHistory.location": "gitlens",
+    "gitlens.views.compare.location": "gitlens",
+    "gitlens.views.search.location": "gitlens",
+    "gitlens.blame.highlight.locations": [
+        "overview",
+        "line",
+        "gutter"
+    ],
+    "gitlens.currentLine.enabled": false,
+    "typescript.tsserver.log": "verbose",
+    "todo-tree.tree.showScanModeButton": false,
+    "extensions.ignoreRecommendations": false,
+    "javascript.implicitProjectConfig.checkJs": true,
+    "editor.useTabStops": false,
+    "editor.tabSize": 2,
+    "powershell.powerShellDefaultVersion": "PowerShell (x64)",
+    "vscode_custom_css.imports": [
+        "file://C:/multi-line-tabs.css"
+    ],
+    "vscode_custom_css.policy": true
 }

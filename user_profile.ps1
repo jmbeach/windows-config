@@ -32,23 +32,17 @@
 # Variables
 
 $userprofile = "$env:CMDER_ROOT\config\user_profile.ps1"
-$windir = "C:\Windows"
-$big = "D:\"
 $startup = "$home\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
-$ghUsername = "jaredbeachdesign@gmail.com"
 $chocoInstall = "C:\ProgramData\chocolatey\"
 $hosts = "C:\Windows\System32\Drivers\etc\hosts"
 $lockscreenimgs = "$home\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets"
-$programFiles = "C:\Program Files\"
-$programFiles86 = "C:\Program Files (x86)\"
-$programFiles86D = "D:\Program Files (x86)\"
-$programFilesD = "D:\Program Files\"
-$appDataLocal = "$env:APPDATA\..\Local"
-$repos = "C:\Repos\"
 
 # Aliases
 
 Set-Alias -Name grep -Value "C:\tools\cygwin\bin\grep.exe" -Option AllScope
+Set-Alias -Name checkout -Value Checkout-IronTicket
+Set-Alias -Name build -Value Build-IronTicket
+Set-Alias -Name test -Value Test-IronTicket
 Set-Alias -Name jira -Value Open-JiraTicket
 Set-Alias -Name list -Value List-IronTickets
 Set-Alias -Name open -Value explorer -Option AllScope
@@ -58,76 +52,11 @@ Set-Alias -Name ssms11-config -Value "C:\Windows\SysWOW64\SQLServerManager11.msc
 Set-Alias -Name ssms12-config -Value "C:\Windows\SysWOW64\SQLServerManager12.msc"
 Set-Alias -Name status -Value Get-IronTicketStatus
 Set-Alias -Name todos -Value List-IronTicketTodos
+Set-Alias -Name qube -Value Get-IronQubeIssues
 Set-Alias -Name speak -Value Start-GoogleTTS
 Set-Alias -Name xsltproc -Value "C:\tools\cygwin\bin\xsltproc.exe" -Option AllScope
 
 # Functions
-
-function escape-string {
-	$toEsc = $args[0]
-	$chars = $toEsc.ToCharArray()
-	$escaped = "";
-	for ($i = 0; $i -lt $chars.Length; $i++) {
-		$current = $chars[$i]
-		if ($current -eq '"') {
-			$escaped+= '"'
-		}
-		$escaped+= $current
-	}
-	$escaped
-}
-
-function go-big {
-	cd $big
-}
-
-function go-home {
-	cd $home
-}
-
-function go-code {
-	cd "$home\Code"
-}
-
-function go-programs {
-	cd $programFiles
-}
-
-function go-programs86 {
-	cd $programFiles86
-}
-
-function restart-sqlexpress {
-	net stop MSSQL"$"SQLEXPRESS
-	net start MSSQL"$"SQLEXPRESS
-}
-
-function test-transform {
-	$transform = $args[0]
-	$fileName = $args[1]
-	$out = $args[2] 
-	$tempName = "temp$($out)"
-	xsltproc $transform $fileName > $tempName
-	xmllint --format $tempName
-	xmllint --format $tempName > $out
-	rm $tempName
-}
-
-function Gh-Create ([string]$repoName) {
-	$data = @{
-		name = $repoName
-	}
-
-	$headers = @{
-		Authorization = "Basic $(Get-Content $home\gh.txt)"
-	}
-
-	return Invoke-WebRequest -Uri https://api.github.com/user/repos -Method Post -ContentType "application/json" -Headers $headers -Body $(ConvertTo-Json $data -Compress)
-}
-
-function notify-done {
-	echo "done" | pb push
-}
 
 Function gig {
   param(
@@ -137,12 +66,6 @@ Function gig {
   $params = $list -join ","
   Invoke-WebRequest -Uri "https://www.gitignore.io/api/$params" | select -ExpandProperty content
 }
-
-function register-chocolatey-functions() {
-	$helpers = "$chocoInstall\helpers"
-	Import-Module "$helpers\chocolateyInstaller.psm1"
-}
-
 # Settings
 
 ## Makes tab completion work like bash
@@ -150,31 +73,9 @@ Set-PSReadlineKeyHandler -Chord Tab -Function Complete
 
 # Load other files
 Get-ChildItem "$home\custom-scripts\*.ps1" | %{.$_}
-Get-ChildItem "$home\private-custom-scripts\*.ps1" | %{.$_}
+Get-ChildItem "$home\private-custom-scripts\*.ps1" | Where-Object {$_.Name -notlike '*profile.ps1' } | %{.$_}
 
 $homeUnix = $HOME.Replace("\", "/").Replace("Copen:", "")
-
-$cows = @(
-	'box',
-	'clippy',
-	'head',
-	'happy-whale',
-	'maze-runner',
-	'nyan',
-	'octopus',
-	'r2-d2',
-	'three-cubes',
-	'toaster',
-	'USA',
-	'wizard',
-	'world'
-)
-
-$cowIndex = [Math]::Round([Math]::Abs([Math]::Sin([datetime]::Now.Ticks)) * $cows.Count)
-$cowName = $cows[$cowIndex] + ".cow"
-
-fortune | cowsay -f /mnt/c/$homeUnix/code/github/paulkaefer/cowsay-files/cows/$cowName
-register-chocolatey-functions
 
 $env:PYTHONIOENCODING='utf-8'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -199,3 +100,4 @@ function Get-ChildItemPretty () {
 
 Set-Alias -Name ls -Value Get-ChildItemPretty -Option AllScope
 Import-Module $HOME\Code\github\jmbeach\Windows-screenFetch\windows-screenfetch.psd1
+clear
