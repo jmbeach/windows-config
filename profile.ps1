@@ -2,36 +2,55 @@
 # Created as part of cmder project
 
 # !!! THIS FILE IS OVERWRITTEN WHEN CMDER IS UPDATED
-# !!! Use "%CMDER_ROOT%\config\user-profile.ps1" to add your own startup commands
-
-# We do this for Powershell as Admin Sessions because CMDER_ROOT is not beng set.
-if (! $ENV:CMDER_ROOT ) {
-    $ENV:CMDER_ROOT = resolve-path( $ENV:ConEmuDir + "\..\.." )
-}
-
-# Remove trailing '\'
-$ENV:CMDER_ROOT = (($ENV:CMDER_ROOT).trimend("\"))
+# !!! Use "%CMDER_ROOT%\config\user_profile.ps1" to add your own startup commands
 
 # Compatibility with PS major versions <= 2
 if(!$PSScriptRoot) {
     $PSScriptRoot = Split-Path $Script:MyInvocation.MyCommand.Path
 }
 
+if ($ENV:CMDER_USER_CONFIG) {
+    # write-host "CMDER IS ALSO USING INDIVIDUAL USER CONFIG FROM '$ENV:CMDER_USER_CONFIG'!"
+}
+
+# We do this for Powershell as Admin Sessions because CMDER_ROOT is not beng set.
+if (! $ENV:CMDER_ROOT ) {
+    if ( $ENV:ConEmuDir ) {
+        $ENV:CMDER_ROOT = resolve-path( $ENV:ConEmuDir + "\..\.." )
+    } else {
+        $ENV:CMDER_ROOT = resolve-path( $PSScriptRoot + "\.." )
+    }
+}
+
+# Remove trailing '\'
+$ENV:CMDER_ROOT = (($ENV:CMDER_ROOT).trimend("\"))
+
+# Do not load bundled psget if a module installer is already available
+# -> recent PowerShell versions include PowerShellGet out of the box
+$moduleInstallerAvailable = [bool](Get-Command -Name 'Install-Module' -ErrorAction SilentlyContinue)
+
 # Add Cmder modules directory to the autoload path.
 $CmderModulePath = Join-path $PSScriptRoot "psmodules/"
 
-if( -not $env:PSModulePath.Contains($CmderModulePath) ){
+if(-not $moduleInstallerAvailable -and -not $env:PSModulePath.Contains($CmderModulePath) ){
     $env:PSModulePath = $env:PSModulePath.Insert(0, "$CmderModulePath;")
 }
 
+function Configure-Git($GIT_INSTALL_ROOT){
+  $env:Path += $(";" + $GIT_INSTALL_ROOT + "\cmd")
 
-try {
-    # Check if git is on PATH, i.e. Git already installed on system
-    Get-command -Name "git" -ErrorAction Stop >$null
-} catch {
-    $env:Path += $(";" + $env:CMDER_ROOT + "\vendor\git-for-windows\cmd")
-    # for bash.exe, which in the cmd version is found as <GIT>\usr\bin\bash.exe
-    $env:Path += $(";" + $env:CMDER_ROOT + "\vendor\git-for-windows\bin")
+  # Add "$GIT_INSTALL_ROOT\usr\bin" to the path if exists and not done already
+  $GIT_INSTALL_ROOT_ESC=$GIT_INSTALL_ROOT.replace('\','\\')
+  if ((test-path "$GIT_INSTALL_ROOT\usr\bin") -and -not ($env:path -match "$GIT_INSTALL_ROOT_ESC\\usr\\bin")) {
+      $env:path = "$env:path;$GIT_INSTALL_ROOT\usr\bin"
+  }
+  
+  # Add "$GIT_INSTALL_ROOT\mingw[32|64]\bin" to the path if exists and not done already
+  if ((test-path "$GIT_INSTALL_ROOT\mingw32\bin") -and -not ($env:path -match "$GIT_INSTALL_ROOT_ESC\\mingw32\\bin")) {
+      $env:path = "$env:path;$GIT_INSTALL_ROOT\mingw32\bin"
+  } elseif ((test-path "$GIT_INSTALL_ROOT\mingw64\bin") -and -not ($env:path -match "$GIT_INSTALL_ROOT_ESC\\mingw64\\bin")) {
+      $env:path = "$env:path;$GIT_INSTALL_ROOT\mingw64\bin"
+  }
 }
 
 $gitLoaded = $false
@@ -60,11 +79,17 @@ function checkGit($Path) {
     }
 }
 
-# Move to the wanted location
-# This is either a env variable set by the user or the result of
-# cmder.exe setting this variable due to a commandline argument or a "cmder here"
-if ( $ENV:CMDER_START ) {
-    Set-Location -Path "$ENV:CMDER_START"
+try {
+    # Check if git is on PATH, i.e. Git already installed on system
+    Get-command -Name "git" -ErrorAction Stop >$null
+} catch {
+    if (test-path "$env:CMDER_ROOT\vendor\git-for-windows") {
+        Configure-Git "$env:CMDER_ROOT\vendor\git-for-windows"
+    }
+}
+
+if ( Get-command -Name "vim" -ErrorAction silentlycontinue) {
+    new-alias -name "vi" -value vim
 }
 
 if (Get-Module PSReadline -ErrorAction "SilentlyContinue") {
@@ -72,7 +97,7 @@ if (Get-Module PSReadline -ErrorAction "SilentlyContinue") {
 }
 
 # Enhance Path
-$env:Path = "$Env:CMDER_ROOT\bin;$env:Path;$Env:CMDER_ROOT"
+$env:Path = "$Env:CMDER_ROOT\bin;$Env:CMDER_ROOT\vendor\bin;$env:Path;$Env:CMDER_ROOT"
 
 # Drop *.ps1 files into "$ENV:CMDER_ROOT\config\profile.d"
 # to source them at startup.
@@ -81,220 +106,111 @@ if (-not (test-path "$ENV:CMDER_ROOT\config\profile.d")) {
 }
 
 pushd $ENV:CMDER_ROOT\config\profile.d
-foreach ($x in ls *.ps1) {
+foreach ($x in Get-ChildItem *.psm1) {
+  # write-host write-host Sourcing $x
+  Import-Module $x
+}
+
+foreach ($x in Get-ChildItem *.ps1) {
   # write-host write-host Sourcing $x
   . $x
 }
 popd
 
+# Drop *.ps1 files into "$ENV:CMDER_USER_CONFIG\config\profile.d"
+# to source them at startup.  Requires using cmder.exe /C [cmder_user_root_path] argument
+if ($ENV:CMDER_USER_CONFIG -ne "" -and (test-path "$ENV:CMDER_USER_CONFIG\profile.d")) {
+    pushd $ENV:CMDER_USER_CONFIG\profile.d
+    foreach ($x in Get-ChildItem *.psm1) {
+      # write-host write-host Sourcing $x
+      Import-Module $x
+    }
+
+    foreach ($x in Get-ChildItem *.ps1) {
+      # write-host write-host Sourcing $x
+      . $x
+    }
+    popd
+}
+
+# Renaming to "config\user_profile.ps1" to "user_profile.ps1" for consistency.
+if (test-path "$env:CMDER_ROOT\config\user-profile.ps1") {
+  rename-item  "$env:CMDER_ROOT\config\user-profile.ps1" user_profile.ps1
+}
+
+$CmderUserProfilePath = Join-Path $env:CMDER_ROOT "config\user_profile.ps1"
+if (Test-Path $CmderUserProfilePath) {
+    # Create this file and place your own command in there.
+    . "$CmderUserProfilePath" # user_profile.ps1 is not a module DO NOT USE import-module
+}
+
+if ($ENV:CMDER_USER_CONFIG) {
+    # Renaming to "$env:CMDER_USER_CONFIG\user-profile.ps1" to "user_profile.ps1" for consistency.
+    if (test-path "$env:CMDER_USER_CONFIG\user-profile.ps1") {
+      rename-item  "$env:CMDER_USER_CONFIG\user-profile.ps1" user_profile.ps1
+    }
+
+    $env:Path = "$Env:CMDER_USER_CONFIG\bin;$env:Path"
+
+    $CmderUserProfilePath = Join-Path $ENV:CMDER_USER_CONFIG "user_profile.ps1"
+    if (Test-Path $CmderUserProfilePath) {
+      . "$CmderUserProfilePath" # user_profile.ps1 is not a module DO NOT USE import-module
+    }
+}
+
+if (! (Test-Path $CmderUserProfilePath) ) {
+    Write-Host -BackgroundColor Darkgreen -ForegroundColor White "First Run: Creating user startup file: $CmderUserProfilePath"
+    Copy-Item "$env:CMDER_ROOT\vendor\user_profile.ps1.default" -Destination $CmderUserProfilePath
+}
+
 #
 # Prompt Section
-#   Users should modify their user-profile.ps1 as it will be safe from updates.
+#   Users should modify their user_profile.ps1 as it will be safe from updates.
 #
 
-# Pre assign the hooks so the first run of cmder gets a working prompt.
-[ScriptBlock]$PrePrompt = {}
-[ScriptBlock]$PostPrompt = {}
-[ScriptBlock]$CmderPrompt = {
-    $Host.UI.RawUI.ForegroundColor = "White"
-    Microsoft.PowerShell.Utility\Write-Host $pwd.ProviderPath -NoNewLine -ForegroundColor Green
-    checkGit($pwd.ProviderPath)
+# Only set the prompt if it is currently set to the default
+# This allows users to configure the prompt in their user_profile.ps1 or config\profile.d\*.ps1
+if ( $(get-command prompt).Definition -match 'PS \$\(\$executionContext.SessionState.Path.CurrentLocation\)\$\(' -and `
+  $(get-command prompt).Definition -match '\(\$nestedPromptLevel \+ 1\)\) ";') {
+  # Pre assign the hooks so the first run of cmder gets a working prompt.
+  [ScriptBlock]$PrePrompt = {}
+  [ScriptBlock]$PostPrompt = {}
+  [ScriptBlock]$CmderPrompt = {
+      $Host.UI.RawUI.ForegroundColor = "White"
+      Microsoft.PowerShell.Utility\Write-Host $pwd.ProviderPath -NoNewLine -ForegroundColor Green
+      if (get-command git -erroraction silentlycontinue) {
+          checkGit($pwd.ProviderPath)
+      }
+  }
+
+  <#
+  This scriptblock runs every time the prompt is returned.
+  Explicitly use functions from MS namespace to protect from being overridden in the user session.
+  Custom prompt functions are loaded in as constants to get the same behaviour
+  #>
+  [ScriptBlock]$Prompt = {
+      $realLASTEXITCODE = $LASTEXITCODE
+      $host.UI.RawUI.WindowTitle = Microsoft.PowerShell.Management\Split-Path $pwd.ProviderPath -Leaf
+      PrePrompt | Microsoft.PowerShell.Utility\Write-Host -NoNewline
+      CmderPrompt
+      Microsoft.PowerShell.Utility\Write-Host "`nλ " -NoNewLine -ForegroundColor "DarkGray"
+      PostPrompt | Microsoft.PowerShell.Utility\Write-Host -NoNewline
+      $global:LASTEXITCODE = $realLASTEXITCODE
+      return " "
+  }
+
+
+  # Once Created these code blocks cannot be overwritten
+  # if (-not $(get-command PrePrompt).Options -match 'Constant') {Set-Item -Path function:\PrePrompt   -Value $PrePrompt   -Options Constant}
+  # if (-not $(get-command CmderPrompt).Options -match 'Constant') {Set-Item -Path function:\CmderPrompt -Value $CmderPrompt -Options Constant}
+  # if (-not $(get-command PostPrompt).Options -match 'Constant') {Set-Item -Path function:\PostPrompt  -Value $PostPrompt  -Options Constant}
+
+#   Set-Item -Path function:\PrePrompt   -Value $PrePrompt   -Options Constant
+#   Set-Item -Path function:\CmderPrompt -Value $CmderPrompt -Options Constant
+#   Set-Item -Path function:\PostPrompt  -Value $PostPrompt  -Options Constant
+
+  # Functions can be made constant only at creation time
+  # ReadOnly at least requires `-force` to be overwritten
+  # if (!$(get-command Prompt).Options -match 'ReadOnly') {Set-Item -Path function:\prompt  -Value $Prompt  -Options ReadOnly}
+#   Set-Item -Path function:\prompt  -Value $Prompt  -Options ReadOnly
 }
-
-$CmderUserProfilePath = Join-Path $env:CMDER_ROOT "config\user-profile.ps1"
-if(Test-Path $CmderUserProfilePath) {
-    # Create this file and place your own command in there.
-    . "$CmderUserProfilePath"
-} else {
-# This multiline string cannot be indented, for this reason I've not indented the whole block
-
-Write-Host -BackgroundColor Darkgreen -ForegroundColor White "First Run: Creating user startup file: $CmderUserProfilePath"
-
-$UserProfileTemplate = @'
-# Use this file to run your own startup commands
-
-## Prompt Customization
-<#
-.SYNTAX
-    <PrePrompt><CMDER DEFAULT>
-    > <PostPrompt> <repl input>
-.EXAMPLE
-    <PrePrompt>N:\Documents\src\cmder [master]
-    > <PostPrompt> |
-#>
-
-[ScriptBlock]$PrePrompt = {
-
-}
-
-# Replace the cmder prompt entirely with this.
-# [ScriptBlock]$CmderPrompt = {}
-
-[ScriptBlock]$PostPrompt = {
-
-}
-
-## <Continue to add your own>
-
-
-'@
-
-New-Item -ItemType File -Path $CmderUserProfilePath -Value $UserProfileTemplate > $null
-
-}
-
-# Once Created these code blocks cannot be overwritten
-Set-Item -Path function:\PrePrompt   -Value $PrePrompt   -Options Constant
-Set-Item -Path function:\CmderPrompt -Value $CmderPrompt -Options Constant
-Set-Item -Path function:\PostPrompt  -Value $PostPrompt  -Options Constant
-
-<#
-This scriptblock runs every time the prompt is returned.
-Explicitly use functions from MS namespace to protect from being overridden in the user session.
-Custom prompt functions are loaded in as constants to get the same behaviour
-#>
-[ScriptBlock]$Prompt = {
-    $realLASTEXITCODE = $LASTEXITCODE
-    $host.UI.RawUI.WindowTitle = Microsoft.PowerShell.Management\Split-Path $pwd.ProviderPath -Leaf
-    PrePrompt | Microsoft.PowerShell.Utility\Write-Host -NoNewline
-    CmderPrompt
-    Microsoft.PowerShell.Utility\Write-Host "`n> " -NoNewLine -ForegroundColor "DarkGray"
-    PostPrompt | Microsoft.PowerShell.Utility\Write-Host -NoNewline
-    $global:LASTEXITCODE = $realLASTEXITCODE
-    return " "
-}
-
-# Functions can be made constant only at creation time
-# ReadOnly at least requires `-force` to be overwritten
-Set-Item -Path function:\prompt  -Value $Prompt  -Options ReadOnly
-
-#########################################
-# Custom edits below this line
-#########################################
-
-# Variables
-
-$profile = "C:\tools\cmder\vendor\conemu-maximus5\..\profile.ps1"
-$windir = "C:\Windows"
-$big = "D:\"
-$startup = "$home\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
-$ghUsername = "jaredbeachdesign@gmail.com"
-$chocoInstall = "C:\ProgramData\chocolatey\"
-$hosts = "C:\Windows\System32\Drivers\etc\hosts"
-$lockscreenimgs = "$home\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets"
-$programFiles = "C:\Program Files\"
-$programFiles86 = "C:\Program Files (x86)\"
-$programFiles86D = "D:\Program Files (x86)\"
-$programFilesD = "D:\Program Files\"
-$appDataLocal = "$env:APPDATA\..\Local"
-
-# Aliases
-
-Set-Alias -Name open -Value explorer -Option AllScope
-Set-Alias -Name fortune -Value "C:\cygwin\bin\fortune.exe" -Option AllScope
-Set-Alias -Name grep -Value "C:\cygwin\bin\grep.exe" -Option AllScope
-Set-Alias -Name xsltproc -Value "C:\cygwin\bin\xsltproc.exe" -Option AllScope
-Set-Alias -Name shimgen -Value "$env:ChocolateyInstall\tools\shimgen.exe"
-Set-Alias -Name ssms12-config -Value "C:\Windows\SysWOW64\SQLServerManager12.msc"
-Set-Alias -Name ssms11-config -Value "C:\Windows\SysWOW64\SQLServerManager11.msc"
-
-# Functions
-
-function escape-string {
-	$toEsc = $args[0]
-	$chars = $toEsc.ToCharArray()
-	$escaped = "";
-	for ($i = 0; $i -lt $chars.Length; $i++) {
-		$current = $chars[$i]
-		if ($current -eq '"') {
-			$escaped+= '"'
-		}
-		$escaped+= $current
-	}
-	$escaped
-}
-
-function go-big {
-	cd $big
-}
-
-function go-home {
-	cd $home
-}
-
-function go-code {
-	cd "$big\Code"
-}
-
-function go-programs {
-	cd $programFiles
-}
-
-function go-programs86 {
-	cd $programFiles86
-}
-
-function go-williams {
-	cd "$big\Code\Williams.International\AutomationEngine"
-}
-
-function restart-sqlexpress {
-	net stop MSSQL"$"SQLEXPRESS
-	net start MSSQL"$"SQLEXPRESS
-}
-
-function test-transform {
-	$transform = $args[0]
-	$fileName = $args[1]
-	$out = $args[2] 
-	$tempName = "temp$($out)"
-	xsltproc $transform $fileName > $tempName
-	xmllint --format $tempName
-	xmllint --format $tempName > $out
-	rm $tempName
-}
-
-function gh-create {
-	$repoName = $args[0]
-	$data = @{
-		name=$repoName
-	}
-	$data | ConvertTo-Json -Compress | curl -H "Content-Type: application/json" -u $ghUsername https://api.github.com/user/repos -d "@-"
-}
-
-function notify-done {
-	echo "done" | pb push
-}
-
-Function gig {
-  param(
-    [Parameter(Mandatory=$true)]
-    [string[]]$list
-  )
-  $params = $list -join ","
-  Invoke-WebRequest -Uri "https://www.gitignore.io/api/$params" | select -ExpandProperty content
-}
-
-function register-chocolatey-functions() {
-	$helpers = "$chocoInstall\helpers"
-	Import-Module "$helpers\chocolateyInstaller.psm1"
-}
-
-# Settings
-
-## Makes tab completion work like bash
-Set-PSReadlineKeyHandler -Chord Tab -Function Complete
-
-# Load other files
-Get-ChildItem "$home\custom-scripts\utilities.ps1" | %{.$_}
-Get-ChildItem "$home\custom-scripts\*.ps1" | %{.$_}
-
-iex fortune
-register-chocolatey-functions
-
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-
-$env:PYTHONIOENCODING='utf-8'
-Add-Type -AssemblyName System.speech
-$speak = New-Object System.Speech.Synthesis.SpeechSynthesizer
-refreshenv
