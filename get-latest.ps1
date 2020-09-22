@@ -9,11 +9,11 @@ Copy-Item -re -fo "$env:USERPROFILE\Documents\Visual Studio 2017\Code Snippets\*
 
 $cwd = (Get-Item .).FullName
 
-# export visual studio settings and copy here https://stackoverflow.com/a/48663477/1834329
-$outFileName = "$cwd\visual-studio\vs15-settings.xml"
-$filenameEscaped="`"$outFileName`""
-$dte = [System.Runtime.InteropServices.Marshal]::GetActiveObject("VisualStudio.DTE.14.0") 
-$dte.ExecuteCommand("Tools.ImportandExportSettings", '/export:'+$filenameEscaped)
+# # export visual studio settings and copy here https://stackoverflow.com/a/48663477/1834329
+# $outFileName = "$cwd\visual-studio\vs15-settings.xml"
+# $filenameEscaped="`"$outFileName`""
+# $dte = [System.Runtime.InteropServices.Marshal]::GetActiveObject("VisualStudio.DTE.14.0") 
+# $dte.ExecuteCommand("Tools.ImportandExportSettings", '/export:'+$filenameEscaped)
 
 # get vs code settings and copy here
 if (![System.IO.Directory]::Exists("$cwd\vscode-config"))
@@ -23,4 +23,5 @@ if (![System.IO.Directory]::Exists("$cwd\vscode-config"))
 
 $codeFolder = "$home\AppData\Roaming\Code\User";
 Copy-Item "$codeFolder\settings.json","$codeFolder\keybindings.json" ".\vscode-config"
-Copy-Item -Recurse "$codeFolder\snippets" ".\vscode-snippets"
+Copy-Item -Recurse "$codeFolder\snippets" ".\vscode-snippets" -Force
+Copy-Item C:\multi-line-tabs.css . -Force;

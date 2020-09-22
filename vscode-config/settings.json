@@ -43,5 +43,6 @@
     "vscode_custom_css.imports": [
         "file://C:/multi-line-tabs.css"
     ],
-    "vscode_custom_css.policy": true
+    "vscode_custom_css.policy": true,
+    "update.enableWindowsBackgroundUpdates": false
 }

@@ -100,4 +100,5 @@ function Get-ChildItemPretty () {
 
 Set-Alias -Name ls -Value Get-ChildItemPretty -Option AllScope
 Import-Module $HOME\Code\github\jmbeach\Windows-screenFetch\windows-screenfetch.psd1
+Add-Type -Path "$home\bin\nuget_packages\HtmlAgilityPack.1.11.24\lib\netstandard2.0\HtmlAgilityPack.dll"
 clear
