@@ -1,5 +1,5 @@
 {
-    "window.zoomLevel": -1,
+    "window.zoomLevel": 0,
     "workbench.colorCustomizations": {},
     "git.autofetch": true,
     "files.associations": {
@@ -44,5 +44,10 @@
         "file://C:/multi-line-tabs.css"
     ],
     "vscode_custom_css.policy": true,
-    "update.enableWindowsBackgroundUpdates": false
+    "update.enableWindowsBackgroundUpdates": false,
+    "diffEditor.ignoreTrimWhitespace": true,
+    "explorer.autoReveal": false,
+    "editor.detectIndentation": false,
+    "debug.javascript.autoAttachFilter": "disabled",
+    "workbench.colorTheme": "Visual Studio Dark"
 }

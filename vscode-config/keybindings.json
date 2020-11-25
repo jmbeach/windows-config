@@ -85,5 +85,19 @@
     {
         "key": "ctrl+n",
         "command": "explorer.newFile"
+    },
+    {
+      "key": "ctrl+shift+alt+l",
+      "command": "text-transformer.lower",
+      "when": "editorTextFocus"
+    },
+    {
+      "key": "ctrl+alt+l",
+      "command": "-text-transformer.lower",
+      "when": "editorTextFocus"
+    },
+    {
+      "key": "ctrl+alt+l",
+      "command": "workbench.files.action.showActiveFileInExplorer"
     }
 ]

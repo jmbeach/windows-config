@@ -85,7 +85,7 @@ Set-Item -Path function:\PostPrompt  -Value $PostPrompt  -Options Constant
 
 # Functions can be made constant only at creation time
 # ReadOnly at least requires `-force` to be overwritten
-# if (!$(get-command Prompt).Options -match 'ReadOnly') {Set-Item -Path function:\prompt  -Value $Prompt  -Options ReadOnly}
+if (!$(get-command Prompt).Options -match 'ReadOnly') {Set-Item -Path function:\prompt  -Value $Prompt  -Options ReadOnly}
 Set-Item -Path function:\prompt  -Value $Prompt  -Options ReadOnly
 function Get-ChildItemPretty () {
 	$children = Get-ChildItem;
@@ -100,5 +100,6 @@ function Get-ChildItemPretty () {
 
 Set-Alias -Name ls -Value Get-ChildItemPretty -Option AllScope
 Import-Module $HOME\Code\github\jmbeach\Windows-screenFetch\windows-screenfetch.psd1
+Import-Module $HOME\custom-scripts\gulp-completion.psm1
 Add-Type -Path "$home\bin\nuget_packages\HtmlAgilityPack.1.11.24\lib\netstandard2.0\HtmlAgilityPack.dll"
 clear

@@ -6,7 +6,8 @@ Copy-Item "$env:CMDER_ROOT/config/user_profile.ps1" .
 Copy-Item "$env:CMDER_ROOT/vendor/profile.ps1" .
 Copy-Item "$env:CMDER_ROOT\config\prompt-char.txt" .
 Copy-Item "$env:CMDER_ROOT\config\user-ConEmu.xml" .
-Copy-Item -re -fo "$env:USERPROFILE\Documents\Visual Studio 2017\Code Snippets\*" .\visual-studio\code-snippets
+Copy-Item "$home\AppData\Roaming\Hyper\.hyper.js" .
+# Copy-Item -re -fo "$env:USERPROFILE\Documents\Visual Studio 2017\Code Snippets\*" .\visual-studio\code-snippets
 
 $cwd = (Get-Item .).FullName
 

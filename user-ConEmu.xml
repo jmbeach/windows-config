@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <key name="Software">
 	<key name="ConEmu">
-		<key name=".Vanilla" modified="2020-09-22 08:18:34" build="180626">
-			<value name="ColorTable00" type="dword" data="00000000"/>
-			<value name="ColorTable01" type="dword" data="00a46534"/>
-			<value name="ColorTable02" type="dword" data="00069a4e"/>
-			<value name="ColorTable03" type="dword" data="009a9806"/>
-			<value name="ColorTable04" type="dword" data="000000cc"/>
-			<value name="ColorTable05" type="dword" data="007b5075"/>
-			<value name="ColorTable06" type="dword" data="0000a0c4"/>
-			<value name="ColorTable07" type="dword" data="00cfd7d3"/>
-			<value name="ColorTable08" type="dword" data="00535755"/>
-			<value name="ColorTable09" type="dword" data="00cf9f72"/>
-			<value name="ColorTable10" type="dword" data="0034e28a"/>
-			<value name="ColorTable11" type="dword" data="00e2e234"/>
-			<value name="ColorTable12" type="dword" data="002929ef"/>
-			<value name="ColorTable13" type="dword" data="00a87fad"/>
-			<value name="ColorTable14" type="dword" data="004fe9fc"/>
-			<value name="ColorTable15" type="dword" data="00eceeee"/>
+		<key name=".Vanilla" modified="2020-10-27 16:01:50" build="180626">
+			<value name="ColorTable00" type="dword" data="00282828"/>
+			<value name="ColorTable01" type="dword" data="00383f47"/>
+			<value name="ColorTable02" type="dword" data="00188d8d"/>
+			<value name="ColorTable03" type="dword" data="003a6594"/>
+			<value name="ColorTable04" type="dword" data="001b3db1"/>
+			<value name="ColorTable05" type="dword" data="008662b1"/>
+			<value name="ColorTable06" type="dword" data="00257bfc"/>
+			<value name="ColorTable07" type="dword" data="0092cae4"/>
+			<value name="ColorTable08" type="dword" data="00264362"/>
+			<value name="ColorTable09" type="dword" data="00798864"/>
+			<value name="ColorTable10" type="dword" data="0086dbd9"/>
+			<value name="ColorTable11" type="dword" data="007fbf8f"/>
+			<value name="ColorTable12" type="dword" data="003c4bf8"/>
+			<value name="ColorTable13" type="dword" data="009b87d2"/>
+			<value name="ColorTable14" type="dword" data="00c877f9"/>
+			<value name="ColorTable15" type="dword" data="00e9bccf"/>
 			<value name="ColorTable16" type="dword" data="00222827"/>
 			<value name="ColorTable17" type="dword" data="009e5401"/>
 			<value name="ColorTable18" type="dword" data="0004aa74"/>
@@ -116,7 +116,7 @@
 			<value name="bgImageColors" type="dword" data="ffffffff"/>
 			<value name="bgOperation" type="hex" data="06"/>
 			<value name="bgPluginAllowed" type="hex" data="01"/>
-			<value name="AlphaValue" type="hex" data="F3"/>
+			<value name="AlphaValue" type="hex" data="E6"/>
 			<value name="AlphaValueSeparate" type="hex" data="00"/>
 			<value name="AlphaValueInactive" type="hex" data="EE"/>
 			<value name="UserScreenTransparent" type="hex" data="00"/>
@@ -124,11 +124,11 @@
 			<value name="ColorKeyValue" type="dword" data="00010101"/>
 			<value name="UseCurrentSizePos" type="hex" data="01"/>
 			<value name="WindowMode" type="dword" data="00000520"/>
-			<value name="ConWnd Width" type="dword" data="000000ab"/>
-			<value name="ConWnd Height" type="dword" data="0000002f"/>
+			<value name="ConWnd Width" type="dword" data="00000086"/>
+			<value name="ConWnd Height" type="dword" data="0000003e"/>
 			<value name="Cascaded" type="hex" data="01"/>
-			<value name="ConWnd X" type="long" data="470"/>
-			<value name="ConWnd Y" type="long" data="162"/>
+			<value name="ConWnd X" type="long" data="-1921"/>
+			<value name="ConWnd Y" type="long" data="-8"/>
 			<value name="16bit Height" type="ulong" data="0"/>
 			<value name="AutoSaveSizePos" type="hex" data="01"/>
 			<value name="IntegralSize" type="hex" data="00"/>
@@ -558,12 +558,12 @@
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
-				<key name="Task9" modified="2020-06-24 09:00:12" build="180626">
+				<key name="Task9" modified="2020-10-20 10:21:37" build="180626">
 					<value name="Name" type="string" data="{Dealer Dashboard}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder.ico"'/>
-					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\dealerdashboard\.vs\config\applicationhost.config /site:dealerdashboard'/>
+					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;":C:"C:\icons\iis.ico" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\dealerdashboard\.vs\config\applicationhost.config /site:dealerdashboard'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
 				</key>
@@ -588,32 +588,32 @@
 					<value name="Cmd3" type="string" data='*-cur_console:P:"&lt;Tomorrow Night Bright&gt;":s1THn "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\guidesapi\.vs\config\applicationhost.config /site:IRONSolutions.GuidesApi'/>
 					<value name="Cmd4" type="string" data='*-cur_console:P:"&lt;Tomorrow Night Bright&gt;":s2THn "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\secure.ironguides.com\.vs\config\applicationhost.config /site:IronGuides.Web'/>
 				</key>
-				<key name="Task12" modified="2020-06-24 09:00:12" build="180626">
+				<key name="Task12" modified="2020-10-20 10:21:37" build="180626">
 					<value name="Name" type="string" data="{GDM}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\dataentry.ironguides.com\.vs\config\applicationhost.config /site:DataEntry.IRONGuides.com'/>
+					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;":C:"C:\icons\iis.ico" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\dataentry.ironguides.com\.vs\config\applicationhost.config /site:DataEntry.IRONGuides.com'/>
 				</key>
-				<key name="Task13" modified="2020-06-24 09:00:12" build="180626">
+				<key name="Task13" modified="2020-10-20 10:21:37" build="180626">
 					<value name="Name" type="string" data="{Guides API}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\guidesapi\.vs\config\applicationhost.config /site:IRONSolutions.GuidesApi'/>
+					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;":t:"Guides API":C:"C:\icons\iis.ico" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\guidesapi\.vs\config\applicationhost.config /site:IRONSolutions.GuidesApi'/>
 				</key>
-				<key name="Task14" modified="2020-06-24 09:00:12" build="180626">
+				<key name="Task14" modified="2020-10-20 10:21:37" build="180626">
 					<value name="Name" type="string" data="{Guides Frontend}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\secure.ironguides.com\.vs\config\applicationhost.config /site:IronGuides.Web'/>
+					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;":t:"Guides Frontend":C:"C:\icons\iis.ico" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\secure.ironguides.com\.vs\config\applicationhost.config /site:IronGuides.Web'/>
 				</key>
 				<key name="Task15" modified="2020-06-24 09:00:12" build="180626">
 					<value name="Name" type="string" data="{Guides React}"/>
@@ -633,77 +633,77 @@
 					<value name="Count" type="long" data="1"/>
 					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;":d:"C:\code\secure.ironguides.com\IronGuides.Web" C:\Users\JBeach\AppData\Local\Yarn\bin\gulp.cmd'/>
 				</key>
-				<key name="Task17" modified="2020-06-24 09:00:12" build="180626">
+				<key name="Task17" modified="2020-10-20 10:21:37" build="180626">
 					<value name="Name" type="string" data="{Internal API}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\IRONSolutions.InternalAPI\.vs\config\applicationhost.config /site:IRONSolutions.InternalAPI'/>
+					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;":t:"Internal API":C:"C:\icons\iis.ico" "C:\Program Files\IIS Express\iisexpress.exe" /trace:error /config:C:\code\IRONSolutions.InternalAPI\.vs\config\applicationhost.config /site:IRONSolutions.InternalAPI'/>
 				</key>
-				<key name="Task18" modified="2020-09-01 10:43:14" build="180626">
+				<key name="Task18" modified="2020-10-20 10:21:37" build="180626">
 					<value name="Name" type="string" data="{IRON Appraiser}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\IRONSolutions.InternalAPI\.vs\config\applicationhost.config /site:IRONSolutions.InternalAPI'/>
+					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;":C:"C:\icons\iis.ico" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\IRONSolutions.InternalAPI\.vs\config\applicationhost.config /site:IRONSolutions.InternalAPI'/>
 				</key>
-				<key name="Task19" modified="2020-09-03 14:22:34" build="180626">
+				<key name="Task19" modified="2020-10-20 10:21:37" build="180626">
 					<value name="Name" type="string" data="{Model Manager}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\legacyguidesdataentry\.vs\config\applicationhost.config /site:legacyguidesdataentry'/>
+					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;":C:"C:\icons\iis.ico" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\legacyguidesdataentry\.vs\config\applicationhost.config /site:legacyguidesdataentry'/>
 				</key>
-				<key name="Task20" modified="2020-09-03 14:22:34" build="180626">
+				<key name="Task20" modified="2020-10-20 10:21:37" build="180626">
 					<value name="Name" type="string" data="{Search API}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\searchapi\.vs\config\applicationhost.config /site:IRONSolutions.SearchApi'/>
+					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;":C:"C:\icons\iis.ico" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\searchapi\.vs\config\applicationhost.config /site:IRONSolutions.SearchApi'/>
 				</key>
-				<key name="Task21" modified="2020-09-03 14:22:34" build="180626">
+				<key name="Task21" modified="2020-10-20 10:15:24" build="180626">
 					<value name="Name" type="string" data="{Kibana - Local}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "C:\kibana-alpha\kibana.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='*-new_console:C:"c:\kibana-local\kibana.ico":d:"C:\kibana-local\bin":P:"&lt;Twilight&gt;" c:\kibana-local\bin\kibana.bat'/>
+					<value name="Cmd1" type="string" data='*-new_console:C:"c:\kibana-local\kibana.ico":d:"C:\kibana-local\bin":P:"&lt;Twilight&gt;":t:"kibana-local" c:\kibana-local\bin\kibana.bat'/>
 				</key>
-				<key name="Task22" modified="2020-09-03 14:22:34" build="180626">
+				<key name="Task22" modified="2020-10-20 10:25:44" build="180626">
 					<value name="Name" type="string" data="{Kibana - Alpha}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "C:\kibana-alpha\kibana.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='*-new_console:C:"c:\kibana-alpha\kibana.ico":d:"C:\kibana-alpha\bin":P:"&lt;Twilight&gt;" c:\kibana-alpha\bin\kibana.bat'/>
+					<value name="Cmd1" type="string" data='*-new_console:C:"C:\kibana-alpha\kibana.ico":d:"C:\kibana-alpha\bin":P:"&lt;Twilight&gt;":t:"kibana-alpha" c:\kibana-alpha\bin\kibana.bat'/>
 				</key>
-				<key name="Task23" modified="2020-09-03 14:22:34" build="180626">
+				<key name="Task23" modified="2020-10-20 10:24:15" build="180626">
 					<value name="Name" type="string" data="{Kibana - Beta}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "C:\kibana-beta\kibana.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='*-new_console:C:"c:\kibana-beta\kibana.ico":d:"C:\kibana-beta\bin":P:"&lt;Twilight&gt;" c:\kibana-beta\bin\kibana.bat'/>
+					<value name="Cmd1" type="string" data='*-new_console:C:"c:\kibana-beta\kibana.ico":d:"C:\kibana-beta\bin":P:"&lt;Twilight&gt;":t:"kibana-beta" c:\kibana-beta\bin\kibana.bat'/>
 				</key>
-				<key name="Task24" modified="2020-09-03 14:22:34" build="180626">
+				<key name="Task24" modified="2020-10-20 10:24:15" build="180626">
 					<value name="Name" type="string" data="{Kibana - Prod}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "C:\kibana-beta\kibana.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='*-new_console:C:"c:\kibana-prod\kibana.ico":d:"C:\kibana-prod\bin":P:"&lt;Twilight&gt;" c:\kibana-prod\bin\kibana.bat'/>
+					<value name="Cmd1" type="string" data='*-new_console:C:"c:\kibana-prod\kibana.ico":d:"C:\kibana-prod\bin":P:"&lt;Twilight&gt;":t:"kibana-prod" c:\kibana-prod\bin\kibana.bat'/>
 				</key>
 				<key name="Task25" modified="2020-09-03 14:22:34" build="180626">
 					<value name="Name" type="string" data="{Powershell 5 as Admin}"/>
@@ -732,14 +732,14 @@
 					<value name="Count" type="long" data="1"/>
 					<value name="Cmd1" type="string" data='*-new_console:d:C:\Users\JBeach "C:\Program Files\PowerShell\7\pwsh.exe" -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command "Invoke-Expression &apos;. &apos;&apos;%ConEmuDir%\..\profile.ps1&apos;&apos;&apos;"'/>
 				</key>
-				<key name="Task28" modified="2020-09-03 14:22:34" build="180626">
+				<key name="Task28" modified="2020-10-20 10:00:25" build="180626">
 					<value name="Name" type="string" data="{RabbitMq}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "C:\Program Files\RabbitMQ Server\rabbitmq.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='*-new_console:C:"C:\Program Files\RabbitMQ Server\rabbitmq.ico":d:"C:\Program Files\RabbitMQ Server\rabbitmq_server-3.8.1\sbin":W:"C:\Program Files\RabbitMQ Server\rabbitmq.png":P:"&lt;Twilight&gt;" rabbitmq-server.bat'/>
+					<value name="Cmd1" type="string" data='*-new_console:t:"RabbitMQ":C:"C:\Program Files\RabbitMQ Server\rabbitmq.ico":d:"C:\Program Files\RabbitMQ Server\rabbitmq_server-3.8.1\sbin":W:"C:\Program Files\RabbitMQ Server\rabbitmq.png":P:"&lt;Twilight&gt;" rabbitmq-server.bat'/>
 				</key>
 				<key name="Task29" modified="2020-09-03 14:22:34" build="180626">
 					<value name="Name" type="string" data="{SchemaCrawler}"/>
@@ -750,23 +750,23 @@
 					<value name="Count" type="long" data="1"/>
 					<value name="Cmd1" type="string" data='*-new_console:C:"C:\Users\JBeach\bin\schema_crawler\schemacrawler.ico":P:"One Dark" Powershell -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command "Invoke-Expression &apos;. &apos;&apos;%USERPROFILE%\private-custom-scripts\schemacrawlerprofile.ps1&apos;&apos;&apos;"'/>
 				</key>
-				<key name="Task30" modified="2020-09-03 14:22:34" build="180626">
+				<key name="Task30" modified="2020-10-20 10:19:43" build="180626">
 					<value name="Name" type="string" data="{SSO}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\ironsso\.vs\config\applicationhost.config /site:IronSSO.Web'/>
+					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;":t:"SSO":C:"C:\icons\iis.ico" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\ironsso\.vs\config\applicationhost.config /site:IronSSO.Web'/>
 				</key>
-				<key name="Task31" modified="2020-09-03 14:22:34" build="180626">
+				<key name="Task31" modified="2020-10-20 10:21:37" build="180626">
 					<value name="Name" type="string" data="{SSO API}"/>
 					<value name="Flags" type="dword" data="00000004"/>
 					<value name="Hotkey" type="dword" data="00000000"/>
 					<value name="GuiArgs" type="string" data=' /icon "%CMDER_ROOT%\icons\cmder.ico"'/>
 					<value name="Active" type="long" data="0"/>
 					<value name="Count" type="long" data="1"/>
-					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;" "C:\Program Files\IIS Express\iisexpress.exe" /config:C:\code\ssoapi\.vs\config\applicationhost.config /site:IRONSolutions.SsoApi'/>
+					<value name="Cmd1" type="string" data='*-new_console:P:"&lt;Tomorrow Night Bright&gt;":t:"SSO API":C:"C:\icons\iis.ico" "C:\Program Files\IIS Express\iisexpress.exe" /trace:error /config:C:\code\ssoapi\.vs\config\applicationhost.config /site:IRONSolutions.SsoApi'/>
 				</key>
 			</key>
 			<key name="Apps" modified="2018-02-22 06:05:13" build="171109">
@@ -1380,11 +1380,11 @@
 			<value name="StatusBar.Hide.Dpi" type="hex" data="01"/>
 			<value name="TabFlashChanged" type="long" data="8"/>
 			<value name="TabModifiedSuffix" type="string" data="[*]"/>
-			<key name="HotKeys" modified="2019-11-04 13:39:02" build="180626">
+			<key name="HotKeys" modified="2020-10-08 16:52:48" build="180626">
 				<value name="KeyMacroVersion" type="hex" data="02"/>
 				<value name="Multi.Modifier" type="dword" data="00000011"/>
 				<value name="Multi.ArrowsModifier" type="dword" data="0000005b"/>
-				<value name="MinimizeRestore" type="dword" data="000011c0"/>
+				<value name="MinimizeRestore" type="dword" data="00000000"/>
 				<value name="MinimizeRestore2" type="dword" data="00000000"/>
 				<value name="GlobalRestore" type="dword" data="00000000"/>
 				<value name="CdExplorerPath" type="dword" data="00000000"/>
@@ -1579,7 +1579,7 @@
 			</key>
 			<value name="StartCreateDelay" type="ulong" data="100"/>
 			<value name="DefaultTerminalDebugLog" type="hex" data="00"/>
-			<value name="LastMonitor" type="string" data="62,0,1920,1080"/>
+			<value name="LastMonitor" type="string" data="-1920,0,0,1040"/>
 			<value name="Restore2ActiveMon" type="hex" data="00"/>
 			<value name="DownShowExOnTopMessage" type="hex" data="00"/>
 			<value name="EnvironmentSet" type="multi">
