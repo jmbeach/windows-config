@@ -43,7 +43,7 @@ module.exports = {
 
     // terminal background color
     // opacity is only supported on macOS
-    backgroundColor: '#000',
+    backgroundColor: '#0f0f0f',
 
     // terminal selection color
     selectionColor: 'rgba(248,28,229,0.3)',
@@ -105,6 +105,13 @@ module.exports = {
     // - Example: `C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`
     shell: "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
     shellArgs: ["-ExecutionPolicy", "Bypass", "-NoLogo", "-NoExit", "-Command", "\"Invoke-Expression '. ''%ConEmuDir%\\..\\profile.ps1'''\";clear"],
+    shells: [
+      {
+        name: "Ubuntu (wsl)",
+        shell: "C:\\Windows\\System32\\wsl.exe",
+        args: ["-d", "ubuntu"]
+      }
+    ],
 
     // for environment variables
     env: {},
@@ -143,7 +150,10 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: ["hyper-launch-menu", "hyper-opacity"],
+  plugins: [
+    "hyper-launch-menu",
+    "hyper-opacity"
+  ],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
@@ -153,9 +163,5 @@ module.exports = {
   keymaps: {
     // Example
     // 'window:devtools': 'cmd+alt+o',
-  },
-  opacity: {
-    focus: 0.9,
-    blur: 0.5
   }
 };
