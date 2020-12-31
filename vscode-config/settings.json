@@ -38,7 +38,6 @@
     "extensions.ignoreRecommendations": false,
     "javascript.implicitProjectConfig.checkJs": true,
     "editor.useTabStops": false,
-    "editor.tabSize": 2,
     "powershell.powerShellDefaultVersion": "PowerShell (x64)",
     "vscode_custom_css.imports": [
         "file://C:/multi-line-tabs.css"
@@ -47,7 +46,21 @@
     "update.enableWindowsBackgroundUpdates": false,
     "diffEditor.ignoreTrimWhitespace": true,
     "explorer.autoReveal": false,
-    "editor.detectIndentation": false,
     "debug.javascript.autoAttachFilter": "disabled",
-    "workbench.colorTheme": "Visual Studio Dark"
+    "workbench.colorTheme": "Visual Studio Dark",
+    "funcList": {
+      "doubleSpacing": true,
+      "filters": [
+        {
+          "extensions": [
+            ".js"
+          ],
+          "native": "/^[a-z]+\\s+\\w+\\s*\\(.*\\)/mgi",
+          "display": "/\\S* +(\\w+\\s*\\(.*\\))/1",
+          "sort": 0
+        }
+      ]
+  },
+"editor.detectIndentation": false,
+"editor.tabSize": 2
 }

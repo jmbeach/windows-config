@@ -1,0 +1,35 @@
+{
+  "Document Function": {
+    "prefix": "fndoc",
+    "body": [
+      "<#",
+      "  .SYNOPSIS",
+      "    ${1:breif description}",
+      "",
+      "  .DESCRIPTION",
+      "    ${2:longer description}",
+      "",
+      "  .INPUTS",
+      "    ${3:describe objects that can be piped to the function}",
+      "",
+      "  .OUTPUTS",
+      "    ${4:describe output}",
+      "",
+      "  .EXAMPLE",
+      "    ${5:example}",
+      "",
+      "  .LINK",
+      "    ${6:link to further docs}",
+      "#>"
+    ]
+  },
+  "Document Function Parameter": {
+    "prefix": "pdoc",
+    "body": [
+      "<#",
+      " .PARAMETER ${1:parameter name}",
+      "   ${2:parameter description}",
+      "#>"
+    ]
+  }
+}
