@@ -11,7 +11,7 @@
 
 [ScriptBlock]$CmderPrompt = {
 	$Host.UI.RawUI.ForegroundColor = "White"
-	Microsoft.PowerShell.Utility\Write-Host $pwd.ProviderPath.Replace($home, '~').Replace("C:\code\secure.ironguides.com\IronGuides.Web", "IG-Web") -NoNewLine -ForegroundColor DarkCyan
+	Microsoft.PowerShell.Utility\Write-Host $pwd.ProviderPath.Replace($home, '~').Replace("C:\code\secure.ironguides.com\IronGuides.Web", "IG-Web") -NoNewLine -ForegroundColor Red
 	Microsoft.PowerShell.Utility\Write-Host ' {' -ForegroundColor Green -NoNewLine 
 	Microsoft.PowerShell.Utility\Write-Host (Get-IronConfig).activeTicket -NoNewLine 
 	Microsoft.PowerShell.Utility\Write-Host '}' -ForegroundColor Green -NoNewLine
@@ -25,6 +25,7 @@
 	CmderPrompt | Microsoft.PowerShell.Utility\Write-Host -NoNewline
 	PostPrompt | Microsoft.PowerShell.Utility\Write-Host  -NoNewline
 	$global:LASTEXITCODE = $realLASTEXITCODE
+	$Host.UI.RawUI.ForegroundColor = "White"
 	return " "
 }
 
@@ -55,6 +56,7 @@ Set-Alias -Name todos -Value List-IronTicketTodos
 Set-Alias -Name qube -Value Get-IronQubeIssues
 Set-Alias -Name speak -Value Start-GoogleTTS
 Set-Alias -Name xsltproc -Value "C:\tools\cygwin\bin\xsltproc.exe" -Option AllScope
+Set-Alias -Name nmake -Value "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\nmake.exe"
 
 # Functions
 
@@ -72,10 +74,16 @@ Function gig {
 Set-PSReadlineKeyHandler -Chord Tab -Function Complete
 
 # Load other files
-Get-ChildItem "$home\custom-scripts\*.ps1" | %{.$_}
+Get-ChildItem "$home\custom-scripts\*.ps1" | ForEach-Object {. $_ }
 Get-ChildItem "$home\private-custom-scripts\*.ps1" | Where-Object {$_.Name -notlike '*profile.ps1' } | %{.$_}
+Get-ChildItem "$home\private-custom-scripts\iron-solutions\*.ps1" | Where-Object {$_.Name -notlike '*profile.ps1' } | %{.$_}
+Import-Module "$home\custom-scripts\process-utils.psm1"
+Import-Module "$home\custom-scripts\shims.psm1";
 
-$homeUnix = $HOME.Replace("\", "/").Replace("Copen:", "")
+# Load shims
+Get-Content "$home\custom-scripts\shims.json" | ConvertFrom-Json | ForEach-Object {
+  New-Shim $_
+}
 
 $env:PYTHONIOENCODING='utf-8'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -101,5 +109,8 @@ function Get-ChildItemPretty () {
 Set-Alias -Name ls -Value Get-ChildItemPretty -Option AllScope
 Import-Module $HOME\Code\github\jmbeach\Windows-screenFetch\windows-screenfetch.psd1
 Import-Module $HOME\custom-scripts\gulp-completion.psm1
+Import-Module $HOME\private-custom-scripts\relax.psm1
 Add-Type -Path "$home\bin\nuget_packages\HtmlAgilityPack.1.11.24\lib\netstandard2.0\HtmlAgilityPack.dll"
-clear
+# clear
+
+Set-PSReadLineOption -Colors @{ Command = 'Green' }

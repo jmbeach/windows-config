@@ -1,13 +1,20 @@
 {
-    "window.zoomLevel": 0,
-    "workbench.colorCustomizations": {},
+  "workbench.colorCustomizations": {},
     "git.autofetch": true,
     "files.associations": {
+        "*.vbhtml": "html",
         "_vimrc": "viml"
     },
     "git.enableSmartCommit": true,
     "git.confirmSync": false,
     "jscpd.files": "*.js",
+    "mssql.connections": [
+      {
+        "connectionString": "Server=localhost;Initial Catalog=EQCI;Integrated Security=True;",
+        "profileName": "EQCI local",
+        "password": ""
+      }
+    ],
     "go.formatTool": "goimports",
     "go.useLanguageServer": true,
     "search.searchOnType": true,
@@ -39,7 +46,7 @@
     "diffEditor.ignoreTrimWhitespace": true,
     "explorer.autoReveal": false,
     "debug.javascript.autoAttachFilter": "disabled",
-    "workbench.colorTheme": "Visual Studio Dark",
+    "workbench.colorTheme": "Slack Theme Aubergine",
     "funcList": {
       "doubleSpacing": true,
       "filters": [
@@ -53,6 +60,11 @@
         }
       ]
   },
-"editor.detectIndentation": false,
-"editor.tabSize": 2
+"editor.detectIndentation": true,
+"editor.tabSize": 2,
+"omnisharp.enableImportCompletion": true,
+"omnisharp.enableRoslynAnalyzers": true,
+"omnisharp.projectLoadTimeout": 1080,
+"omnisharp.path": "latest",
+"omnisharp.loggingLevel": "trace"
 }

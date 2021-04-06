@@ -66,11 +66,6 @@
         "command": "-workbench.action.splitEditor"
     },
     {
-        "key": "s",
-        "command": "git.stage",
-        "when": "isInDiffEditor"
-    },
-    {
         "key": "ctrl+shift+`",
         "command": "-workbench.action.terminal.new"
     },
@@ -99,5 +94,29 @@
     {
       "key": "ctrl+alt+l",
       "command": "workbench.files.action.showActiveFileInExplorer"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-workbench.action.reloadWindow",
+        "when": "isDevelopment"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-workbench.action.quickOpenNavigateNextInRecentFilesPicker",
+        "when": "inQuickOpen && inRecentFilesPicker"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-jupyter.refreshDataViewer",
+        "when": "jupyter.dataViewerActive && jupyter.dataViewerActive"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-workbench.action.openRecent"
+    },
+    {
+        "key": "ctrl+r ctrl+r",
+        "command": "editor.action.rename",
+        "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
     }
 ]
