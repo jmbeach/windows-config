@@ -15,6 +15,7 @@ if ($IsWindows) {
     Copy-Item -re -fo .\visual-studio\code-snippets\* "$env:USERPROFILE\Documents\Visual Studio 2015\Code Snippets\";
     Copy-Item .\shrug.txt "$HOME\" -Force
     Copy-Item icons $HOME
+    Copy-Item .\ConEmu.xml "C:\tools\cmder\vendor\conemu-maximus5\ConEmu.xml"
 }
 
 Copy-Item -Force .\vscode-config\keybindings.json $codeSettingsPath
