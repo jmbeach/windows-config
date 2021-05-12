@@ -57,6 +57,7 @@ Set-Alias -Name qube -Value Get-IronQubeIssues
 Set-Alias -Name speak -Value Start-GoogleTTS
 Set-Alias -Name xsltproc -Value "C:\tools\cygwin\bin\xsltproc.exe" -Option AllScope
 Set-Alias -Name nmake -Value "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\nmake.exe"
+Set-Alias -Name which -Value "C:\Windows\System32\where.exe"
 
 # Functions
 
@@ -107,10 +108,12 @@ function Get-ChildItemPretty () {
 }
 
 Set-Alias -Name ls -Value Get-ChildItemPretty -Option AllScope
+Import-Module $HOME\custom-scripts\spicy-proton\spicy-proton.psm1
+Import-Module psyml
 Import-Module $HOME\Code\github\jmbeach\Windows-screenFetch\windows-screenfetch.psd1
 Import-Module $HOME\custom-scripts\gulp-completion.psm1
 Import-Module $HOME\private-custom-scripts\relax.psm1
-Add-Type -Path "$home\bin\nuget_packages\HtmlAgilityPack.1.11.24\lib\netstandard2.0\HtmlAgilityPack.dll"
+Add-Type -Path "$home\.nuget\HtmlAgilityPack.1.11.32\lib\netstandard2.0\HtmlAgilityPack.dll"
 # clear
 
 Set-PSReadLineOption -Colors @{ Command = 'Green' }
